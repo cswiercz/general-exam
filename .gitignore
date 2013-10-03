@@ -1,4 +1,12 @@
+#
+# Custom Ignore
+#
 *~
+*.pdf
+
+#
+# LaTeX Defaults
+#
 *.acn
 *.acr
 *.alg
