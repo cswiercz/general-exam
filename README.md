@@ -1,4 +1,5 @@
-general-exam
-============
+General Examination
+===================
 
-My general exam document and presentation.
+My general exam titled "Algebro-Geometric Approach to Nonlinear
+Integrable Equations".
