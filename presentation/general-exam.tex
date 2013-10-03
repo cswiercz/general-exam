@@ -1,0 +1,92 @@
+\documentclass {beamer}
+
+% Note: this presentation uses a custom theme
+\usetheme{AAUsimple}
+
+\title{Algebro-Geometric Approach to Nonlinear Integrable Equations}
+\subtitle{General Examination}
+\author{
+  Chris Swierczewski\\
+  {\tt cswiercz@uw.edu}
+}
+\date{\today}
+\institute{
+  Department of Applied Mathematics\\
+  University of Washington\\
+  Seattle, Washington
+
+}
+\pgfdeclareimage[height=1.5cm]{titlepagelogo}{AAUgraphics/aau_logo_new_circle}
+\titlegraphic{
+  \pgfuseimage{titlepagelogo}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Table of Contents}{}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%------------------------------------------------------------------------------
+\subsection{Integrable Equations}
+%------------------------------------------------------------------------------
+
+\begin{frame}{The Kadomtsev--Petviashvili Equation}{}
+  $u(x,y,t) = $ surface height of shallow water wave.
+  \[
+  \tfrac{3}{4} u_{yy} = \frac{\partial}{\partial x} \left(
+  u_t - \tfrac{1}{4} \left(6uu_x + u_{xxx}\right) \right)
+  \]
+  \begin{itemize}
+    \item 2D shallow water wave propagation.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The Kadomtsev--Petviashvili Equation}{}
+  [image]
+\end{frame}
+
+
+\begin{frame}{Integrable Equations}{}
+  KP is {\it integrable}:
+\end{frame}
+
+\section{Results}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Future Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Schottky Problem}{}
+  Counting Riemann matrices $\Omega = X + iY$.
+  \begin{itemize}
+    \item In general: $g(g+1)/2$ free parameters.
+    \item Period Matrices: $3g-3$ free parameters.
+  \end{itemize}
+
+  Q: {\it ``For $g \geq 3$, when is a Riemann matrix $\Omega$ a period
+    matrix?}
+
+  A: When $u(x,y,t) = 2 \partial^2_x \log \theta(z,\Omega)$ solves the
+  KP Equation.
+\end{frame}
+
+
+\begin{frame}[plain,noframenumbering]
+  \finalpage{Thank you!\\\vspace{20pt}{\tt \scriptsize cswiercz@uw.edu}}
+\end{frame}
+
+\end{document}
