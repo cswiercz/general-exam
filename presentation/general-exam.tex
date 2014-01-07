@@ -1,5 +1,8 @@
 \documentclass {beamer}
 
+\usepackage{amsmath,amssymb}
+
+
 %
 % Custom operator declarations
 %
@@ -8,7 +11,9 @@
 \DeclareMathOperator{\hh}{\mathfrak{h}}
 \DeclareMathOperator{\re}{\text{Re}}
 \DeclareMathOperator{\im}{\text{Im}}
-
+\newcommand{\thetachar}[2] {\theta {\scriptsize \begin{bmatrix}#1\\#2\end{bmatrix}}}
+\newcommand{\thetacharsm}[2] {\theta \left[ \begin{smallmatrix} #1
+      \\ #2 \end{smallmatrix} \right]}
 
 
 %
@@ -16,6 +21,8 @@
 %
 \usetheme{AAUsimple}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Algebro-Geometric Approach to Nonlinear Integrable Equations}
 \subtitle{General Examination}
 \author{
@@ -31,6 +38,9 @@
 \titlegraphic{
   \pgfuseimage{titlepagelogo}
 }
+
+\AtBeginSection[]{\begin{frame}\frametitle{Table of Contents}\tableofcontents[currentsection,subsectionstyle=show/show/shaded]\end{frame}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 % Ideas:
@@ -166,7 +176,7 @@
 \subsection{Algebra}
 %------------------------------------------------------------------------------
 
-\begin{frame}{Holomorphic Differentials}
+\begin{frame}{Holomorphic Differentials}{}
   Holomorphic Differentials
 \end{frame}
 
@@ -174,22 +184,107 @@
 \subsection{Geometry}
 %------------------------------------------------------------------------------
 
-\begin{frame}{Monodromy}
+\begin{frame}{Monodromy}{}
   Monodromy
 \end{frame}
+
 
 %------------------------------------------------------------------------------
 \subsection{{\tt abelfunctions}}
 %------------------------------------------------------------------------------
 
-\begin{frame}{{\tt abelfunctions}}
-  abelfunctions
+\begin{frame}[fragile]{{\tt abelfunctions}}{}
+  {\tt abelfunctions}: software for computing with Abelian functions.
+  \begin{itemize}
+    \item Riemann Theta functions,
+    \item period matrices,
+    \item Abel map.
+  \end{itemize}
+
+  \begin{verbatim}
+    >>> from abelfunctions import *
+    >>> from sympy.abc import x,y
+    >>> f = y**3 - 2*x**3*y + x**7
+    >>> X = RiemannSurface(f,x,y)
+    >>> A,B = X.period_matrix()
+  \end{verbatim}
+
+  \begin{centering}
+    \small
+    Available at: http://github.com/cswiercz/abelfunctions
+  \end{centering}
+  \begin{center}
+
+  \end{center}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Future Work and Applications}
+\section{Thesis Goals and Applications}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%------------------------------------------------------------------------------
+\subsection{Solving Integrable PDEs}
+%------------------------------------------------------------------------------
+
+
+
+%------------------------------------------------------------------------------
+\subsection{Computing with Abelian Functions}
+%------------------------------------------------------------------------------
+
+\begin{frame}{Meromorphic Functions for $g=0$}{}
+  All meromorphic functions on $\mathbb{C}^*$ are of the form
+  \[
+  f(x) = \frac{p(x)}{q(x)} =
+  \frac{(x-a_1) \cdots (x-a_n)}{(x-b_1) \cdots (x-b_n)}.
+  \]
+  \begin{itemize}
+    \item Zeros are the roots of $p$: $a_1, \ldots, a_n$.
+    \item Poles are the roots of $q$: $b_1, \ldots, b_n$.
+  \end{itemize}
+  (By Residue Theorem, \#\!\! roots $=$ \#\!\! poles.)
+
+  \vspace{16pt}
+
+  Is there an analogue to $(x-a_i)$ and $(x-b_j)$ on higher genus
+  surfaces?
+
+  \vspace{16pt}
+
+  \begin{block}
+  {\footnotesize Aside: Why is the Weierstrass $\wp$ function not
+    meromorphic on $\mathbb{C}^*$?}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Meromorphic Functions for $g>0$}{}
+  $X$ : complex curve of genus $g > 0$
+  \[
+      f(P) = \prod_{i=1}^n \frac{E(P,A_i)}{E(P,B_i)}
+  \]
+  where $E(P,Q)$ is ``Fay's Prime Form''
+  \[
+      E(P,Q) = \frac{
+        \thetachar{\alpha}{\beta}
+        \left(
+        \int_P^Q \boldsymbol{\omega}
+        \right)
+        }
+      {
+        \sqrt{\zeta(P)} \sqrt{\zeta(Q)}
+      }
+  \]
+  and $\zeta : X \to H^1(X)$ is the holomorphic differential
+  \[
+      \zeta = \nabla \thetachar{\alpha}{\beta} \Big|_{z=0} \cdot
+      \boldsymbol{\omega}
+  \]
+\end{frame}
+
+%------------------------------------------------------------------------------
+\subsection{The Constructive Schottky Problem}
+%------------------------------------------------------------------------------
 
 \begin{frame}{Schottky Problem}{}
   Counting Riemann matrices $\Omega = X + iY$.
@@ -198,11 +293,12 @@
     \item Period Matrices: $3g-3$ free parameters.
   \end{itemize}
 
-  Q: {\it ``For $g \geq 3$, when is a Riemann matrix $\Omega$ a period
-    matrix?}
-
-  A: When $u(x,y,t) = 2 \partial^2_x \log \theta(z,\Omega)$ solves the
-  KP Equation.
+  \begin{block}
+    {Q: \it For $g \geq 3$, when is a Riemann matrix $\Omega$ a period
+      matrix?}
+  \end{block}
+  A: When $u(x,y,t) = 2 \partial^2_x \log \theta(Ux + Vy + Wt +
+  z_0,\Omega)$ solves the KP Equation.
 \end{frame}
 
 
