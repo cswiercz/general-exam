@@ -7,7 +7,7 @@ default: $(doc).pdf
 	open $(doc).pdf
 
 clean:
-	-rm -f $(talk).{aux,log,nav,out,snm,toc,vrb}
+	-rm -f $(doc).{aux,log,nav,out,snm,toc,vrb}
 	-rm -f ./*~
 
 clobber: clean
