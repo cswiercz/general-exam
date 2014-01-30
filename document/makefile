@@ -1,13 +1,17 @@
 doc=general-exam
 
-%.pdf : %.tex
-	pdflatex $<
+# %.pdf : %.tex
+# 	pdflatex $<
 
-default: $(doc).pdf
+default:
+	pdflatex $(doc).tex
+	bibtex $(doc)
+	pdflatex $(doc).tex
+	pdflatex $(doc).tex
 	open $(doc).pdf
 
 clean:
-	-rm -f $(doc).{aux,log,nav,out,snm,toc,vrb}
+	-rm -f $(doc).{aux,log,nav,out,snm,toc,vrb,bbl,blg}
 	-rm -f ./*~
 
 clobber: clean
