@@ -1,0 +1,210 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Complex Algebraic Geometry --- Period Matrices and the Abel Map}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section we give a brief introduction to the theory of complex
+algebraic curves. We explain the concept of a period matrix and the Abel
+map, a particular function from a Riemann surface to the complex
+numbers.
+
+%..............................................................................
+\subsection{Projective Space and Projective Curves}
+%..............................................................................
+
+We begin with an introduction to complex projective geometry. The point
+of the construction is to make concrete the way in which we analyze the
+behavior of functions, such as polynomials, at infinity without having
+to resort to techniques separate from those used at finite points.
+
+In fact, one with an elementary complex analysis background will have
+already seen an example of projective geometry. The Riemann sphere is
+the complex plane $\CC$ with a ``point at infinity'' added. If $z$ is
+the coordinate in $\CC$ then $w = 1/z$ is the coordinate around the
+point at infinity. This explains why, for example, the exponential
+function
+\[
+    e^z = \sum_{n=0}^\infty z^n / n!
+\]
+has an essential singularity at infinity because, in the coordinate $w$
+at infinity, the exponential function is expressed by the series
+\[
+    \sum_{n=0}^\infty w^{-n} / n!.
+\]
+
+The definition of the Riemann sphere is made explicit by the following
+construction: consider the set $U = \CC^2 - \{(0,0)\}$. Define the
+equivalence relation
+\[
+    (a_0, a_1) \sim (\lambda a_0, \lambda a_1),
+    \quad \forall \lambda \neq 0.
+\]
+This is equivalent to saying that all ratios $a_0 : a_1$ are considered
+equivalent points in $U$. The {\it complex projective line} $P^1\CC$ is
+the set of all such equivalence classes. That is,
+\[
+    P^1\CC := \CC^2 / \sim.
+\]
+Points in $P^1\CC$ are typically written as $(a_0 : a_1)$.
+
+The claim is that $P^1\CC$ is precisely the Riemann sphere. Consider the
+two subsets
+\begin{align*}
+    U_0 &= \{ (a_0 : a_1) \in P^1\CC \; | \; a_0 \neq 0 \}, \\
+    U_1 &= \{ (a_0 : a_1) \in P^1\CC \; | \; a_1 \neq 0 \}.
+\end{align*}
+For any $(a_0 : a_1) \in U_0$ we have, by the equivalence property,
+\[
+    (a_0 : a_1) = (1 : a_1/a_0) = (1 : a).
+\]
+Similarly, every point $(b_0 : b_1) \in U_1$ can be written as $(b : 1)$
+and in the intersection $U_0 \cap U_1$ every element can be written in
+either of these two forms. Each of these subspaces are isomorphic to
+$\CC$ since the maps $\phi_0 : (a_0 : a_1) \in U_0 \mapsto a_1 / a_0 \in
+\CC$ and $\phi_1 : (a_0 : a_1) \in U_1 \mapsto a_0 / a_1 \in \CC$ are
+continuous bijections with inverses $\phi^{-1}_0 : a \in \CC \mapsto (1
+: a) \in U_0$ and $\phi^{-1}_1 : b \in \CC \mapsto (b : 1) \in U_1$.
+
+Finally, note that $(0 : 1)$ is the only projective point in $U_1$ which
+is not in $U_0$. Therefore, we identify $U_0$ with the complex plane (at
+$z=0$) and the point $(0 : 1)$ with the point at infinity and set
+\begin{equation}
+  P^1\CC = U_0 \cup \{ (0 : 1) \} \equiv \CC \cup \{(0 : 1)\}.
+\end{equation}
+
+
+%------------------------------------------------------------------------------
+\subsection{Introduction to Algebraic Curves}
+%------------------------------------------------------------------------------
+
+Primary references. \cite{Griffiths89, Ueno97}
+
+A complex plane algebraic curve, $C$, is the zero locus of the
+homogenization of a polynomial $f \in \CC[x,y]$. That is, given a
+polynomial $f(x,y) = a_n(x) y^n + a_{n-1}(x)y^{n-1} + \cdots + a_0(x)$
+its homogenization is the polynomial $F \in P^2\CC[x_0,x_1,x_2]$ where
+\[
+  F(x_0,x_1,x_2) = x_0^d f(x_1/x_0,x_2/x_0).
+\]
+where $d$ is the degree of $F$ and $P^2\CC$ denotes two-dimensional
+complex projective space. We often consider the {\it affine curve}
+$f(x,y) = F(1,x,y)$, which can be thought of as a projection of the
+curve $F$ to $\CC^2[x,y]$. Therefore, a {\it complex plane algebraic
+  curve} is the set
+\[
+  C = \left\{
+  (x_0 : x_1 : x_2) \in P^2\CC : F(x_0,x_1,x_2) = 0
+  \right\}.
+\]
+
+%..............................................................................
+\subsubsection*{Singular Points}
+%..............................................................................
+
+A point $p = (a_0 : a_1 : a_2) \in C$ is a {\it singular point of $C$},
+or a {\it multiple point of $C$}, if
+\[
+  \left(
+    \frac{\partial F}{\partial x_0} (p),
+    \frac{\partial F}{\partial x_1} (p),
+    \frac{\partial F}{\partial x_2} (p)
+  \right)
+  = 0.
+\]
+Just as with roots, singular points have a multiplicity. Without loss of
+generality we consider the case when $p = (1 : 0 : 0)$ is a singular
+point of $F$. The corresponding affine curve is $f(x,y) = F(1,x,y)$
+which we write as
+\[
+  f(x,y) = \sum_{i+j \geq 2}^d a_{ij} x^iy^j.
+\]
+Note that the constant term is zero since we've centered the curve at
+$(0, 0)$, a point of the affine curve, and the linear term vanishes
+since $(0,0)$ is a singular point. We then write
+\[
+  f(x,y) = f_m(x,y) + f_{m+1}(x,y) + \cdots + f_d(x,y), \quad m \geq 2
+\]
+where each $f_n$ is the sum of all of the terms of $f$ of degree $n$;
+that is, terms of the form $a_{ij}x^iy^j$ such that $i+j=n$. The
+smallest such $m$ with non-zero term $f_m$ appearing in $f$ is called
+the {\it multiplicity} of the singular point $(1 : 0 : 0)$. This
+homogenous term can be factored into linear factors
+\[
+  f_m(x,y) = \prod_{j=1}^m (\alpha_jx - \beta_jy).
+\]
+We call the space $f_m(x,y) = 0$ the {\it tangent cone of the plane
+  curve $C$} at $(1 : 0 : 0)$, which consists of a finite number of
+lines.
+
+If the singular point $p$ is elsewhere we can simply map the singular
+point to $(1 : 0 : 0)$ via projective transformation. It is also
+possible to deal with the case directly. If $p = (1 : a : b)$ is a
+singular point then we write the affine curve in the form
+\[
+    f(x,y) = \sum_{i+j \geq 2}^d a_{ij} (x-a)^i(y-b)^j
+\]
+and then write as a sum of homogenous polynomials $g_n(x-a,y-b)$. In the
+case when the singular point is $p = (0 : 1 : b)$ we repeat the above
+process with the affine curve $g(u,v) = F(u,0,v)$ centered at
+$(0,b)$. Finally, the case $p = (0 : 0 : 1)$ [XXX]
+
+\begin{example}
+Let us consider the cubic curve
+\[
+    C: F(x_0,x_1,x_2) = x_0x_1^2 + x_1^3 - x_2^2x_0 = 0.
+\]
+For $p = (a_0 : a_1 : a_2)$ we have
+\begin{align*}
+    \Delta_x^1 F(a) &=
+        (a_1^2 - a_2^2)x_0 + a_1(2a_0 + 2a_1)x_2 - 2a_0a_2x_2 \\
+    \Delta_x^2 F(a) &=
+        4a_1x_0x_1 + 2(a_0+3a_1)x_1^2 - 2a_0x_2^2 - 4a_2x_2x_0.
+\end{align*}
+Note that the point $a = (1 : 0 : 0)$ satisfies $\Delta_x^1 F(a) \equiv
+0$ and $\Delta_x^2 F(a) \not \equiv 0$. The tangent cone at $a$ is given
+by
+\[
+    \Delta_x^2 F(a) = x_1^2 - x_2^2 = 0
+\]
+which represents two lines $x_1 - x_2 = 0$ and $x_1 + x_2 = 0$. When the
+tangent cone at $a$ can be completely factored into linear terms we say
+$a$ is an {\it ordinary} double point of the curve, $C$. On the affine
+plane $x_0=1$, equivalent to setting $x = x_1/x_0$ and $y=x_2/x_0$, this
+gives the curve $f(x,y) = y^3 + xy^2 - x$. In Figure \ref{fig:
+  double-pt-example} we see the double-point singularity appearing at
+the origin where two ``branches'' of the curve meet.
+\end{example}
+
+\begin{figure}
+  \label{fig: double-pt-example}
+  \caption{A real plot of the curve $f(x,y) = y^3 + xy^2 - x$ in the $x-y$ plane.}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{Connection to Riemann Surfaces}
+%------------------------------------------------------------------------------
+
+There exists a close relationship between the study of compact Riemann
+surfaces and that of algebraic curves. A Riemann surface $\tilde{C}$ is
+simply a complex manifold of complex dimension one. This relationship is
+embodied by the following two theorems.
+
+\begin{theorem} \label{thm: normalization}
+  {\it (Normalization Theorem.)} For any irreducible algebraic curve $C
+  \subset P^2\CC$ there exists a compact Riemann surface $\tilde{C}$ and
+  a holomorphic mapping
+  \[
+    \sigma : \tilde{C} \to P^2\CC
+  \]
+  such that $\sigma( \tilde{C} ) = C$ adn $\sigma$ is injective on the
+  inverse image of the set of smooth points of $C$.
+\end{theorem}
+
+A Riemann surface together with the mapping $\sigma$ is called the {\it
+  normalization of $C$}. Loosely speaking, the normalization theorem
+states that an algebraic curve is a Riemann surface except at the
+singular points.
+
+%% In particular, any irreducible plane algebraic curves admits a
+%% holomorphic parametric representation and the domain of definition of
+%% this representation is a compact Riemann surface [[[]]]. The following
+%% two theorems indeed show

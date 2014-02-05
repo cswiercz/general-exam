@@ -1,0 +1,160 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The Kadomtsev-Petviashvili (KP) equation is a partial differential
+equation used to describe the surface height of a two-dimensional
+periodic shallow water wave. Depending on certain physical
+considerations [XXX], which we will ignore, one can derive either of the
+following two equations
+\begin{align}
+  \left(-4u_t + 6uu_x + u_{xxx}\right)_x + 3\sigma^2 u_{yy} = 0, \quad
+  \sigma^2 = -1, \label{eqn: KP1} \\
+  \left(-4u_t + 6uu_x + u_{xxx}\right)_x + 3\sigma^2 u_{yy} = 0, \quad
+  \sigma^2 = +1. \label{eqn: KP2}
+\end{align}
+where $u(x,y,t)$ is the surface height as a function of position $(x,y)$
+and time $t$. In the sequel we will not rely on this distinction and
+simply refer to the ``KP equation''.
+
+%% \marginpar{
+%%   \includegraphics[width=\marginparwidth]{images/livekp.jpg}
+%%   \captionof{figure}{KP waves off the coast of \^{I}le de R\'{e}, France.}
+%% }
+
+The KP equation admits a large family of quasiperiodic solutions of the
+form
+\begin{equation} \label{eqn: kpsol}
+  u(x,y,t) = 2 \partial_x^2 \log \theta(Ux+Vy+Wt+z_0, \Omega)
+\end{equation}
+where $\theta$ is the Riemann theta function.
+
+\begin{definition} \label{def: riemanntheta}
+  The {\bf Riemann theta function} $\theta: \CC^g \times \hh_g \to \CC$
+  is defined in terms of its Fourier series
+  \begin{equation} \label{eqn: riemanntheta}
+    \theta(z,\Omega) = \sum_{n \in \ZZ^g}
+    e^{2 \pi i \left( \tfrac{1}{2} n \cdot \Omega n + n \cdot z \right)}.
+  \end{equation}
+  $\theta$ converges absolutely and uniformly on compact sets in $\CC^g
+  \times \hh_g$ where $\hh_g$ is the space of all {\it ``Riemann
+    matrices''} --- complex symmetric matrices with positive definite
+  imaginary part.
+\end{definition}
+
+From the definition, we see that the Riemann theta function is periodic
+in $z$ with integer periods and quasi-periodic in $z$ in the columns of
+$\Omega$. In other words, if $m,n \in \ZZ^g$ then
+\begin{equation} \label{eq: quasiperiodicity}
+    \theta(z + m + \Omega n, \Omega) =
+    e^{-2 \pi i \left( \tfrac{1}{2} n \cdot \Omega n + n \cdot z \right) }
+    \theta(z, \Omega).
+\end{equation}
+
+A generalization of the Riemann theta function, involving a non-integer
+shift in some of its arguments, is referred to as the Riemann theta
+function with characteristics.
+
+\begin{definition} \label{def: thetachar}
+Let $\alpha,\beta \in [0,1)^{g}$. The {\bf Riemann theta function with
+characteristic $\thcharsm{\alpha}{\beta}$} is defined as
+\begin{align*}
+  \theta\thchar{\alpha}{\beta}(z, \Omega) &=
+  \sum_{n \in \mathbb{Z}^g}
+  e^{2 \pi i \left( \tfrac{1}{2} (n+\alpha) \cdot \Omega (n+\alpha) +
+    (n + \alpha) \cdot (z + \beta) \right) } \\
+  &=
+  e^{2\pi i \left( \tfrac{1}{2} \alpha \cdot \Omega \alpha +
+    \alpha \cdot (z + \beta) \right)}
+  \theta(z + \Omega \alpha + \beta, \Omega).
+\end{align*}
+\end{definition}
+
+Note that $\theta \thcharsm{0}{0}(z,\Omega) = \theta(z,\Omega)$. See
+\cite{DLMF,MumfordI07,MumfordII07} for further definitions and
+properties of the Riemann theta function.
+
+Returning to Equation \eqref{eqn: kpsol}, these solutions are the
+so-called ``theta function solutions'' to the KP equation and families
+of such solutions exist for every $g > 0$. In fact, the totality of
+solutions of this form are dense the space of all periodic solutions to
+KP. [XXX Marchenko and Ostrovskii?, see Dubrovin] The constants
+$U,V,W,z_0 \in \CC^g$ and $\Omega \in \hh_g$, as well as the ``genus''
+$g$, are all determined from a Riemann surface corresponding to a
+complex plane algebraic curve $f \in \CC[x,y]$ and any such curve can
+produce a solution to KP. \cite{Dubrovin81} We will postpone the
+definition of these constants in terms of known quantities until more
+machinery is developed in the following chapters.
+
+\marginpar{Improve / elaborate upon the role of Abelian functions. This
+  paragraph is a bit...I dunno.}
+
+In general, periodic solutions to partial differential equations are
+Abelian functions: doubly-periodic meromorphic functions defined on
+Riemann surfaces [XXX]. Riemann theta functions play a central role in
+the theory of Abelian functions in that all Abelian functions can be
+written as a rational function of the Riemann theta function and its
+derivatives. (Such as in the KP solution above.) Therefore, a primary
+focus of study is the method of computation of these Abelian functions.
+
+The theory of Riemann theta functions and algebraic curves is applicable
+to solving problems in fields other than nonlinear partial differential
+equations. For example Riemann theta functions are involved in the
+computation of bitangent lines; useful for computations in
+optimization-related fields such as algebraic geometry and convex
+optimization. In algebraic geometry, bitangents can represent smooth
+complex plane quartic curves as both a symmetric determinant of a linear
+form (or, determinantal representation) as well as a sum of three
+squares. \cite{PSV11} In convex optimization, bitangents are used to
+construct a ``visibility complex'' which, in turn, is used to solve the
+shortest path problem in Euclidean space \cite{PocchiolaVegter93}
+
+\begin{definition} \label{def: bitangent}
+  A {\bf bitangent} to a plane algebraic curve $C : f(x,y) = 0, f \in
+  \CC[x,y]$ is a line $\mathcal{L} \subset \CC$ that lies tangent to $C$
+  at at least two distinct points.
+\end{definition}
+
+By Bezout's Theorem, if a curve has a bitangent it necessarily must be
+of degree at least four. \cite{Bezout1779} A result of Pl\"{u}cker
+determines that a degree four complex curve admits exactly 28 complex
+bitangents. \cite{Plucker34} In particular, Pl\"{u}cker showed that the
+number of real bitangents of any quartic must be 28, 16, or fewer than
+9. The connection between Riemann theta functions and the bitangent
+lines of smooth quartics was known to Riemann \cite{Riemann76} and, in
+fact, can be computed using the tools developed in this research. See
+Figure \ref{fig: edge} for an example.
+
+\marginpar{Note: Figure \ref{fig: edge} will be replaced with the one
+  generated by abelfunctions once I have it working properly again /
+  once I find the image on my computer.}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/edgequartic}
+  \caption{The real graph of the Edge Quartic $C: f(x,y) = 25(x^4+y^4+1)
+    - 34(x^2y^2+x^2+y^2) = 0$ and its 28 real bitangents. Note that four
+    of them lie tangent $C$ at infinity. These lines were computed using
+    the Riemann theta function.}
+  \label{fig: edge}
+\end{figure}
+
+Finally, Riemann theta functions and algebraic curves can be used to
+compute linear matrix representations of algebraic curves. A theorem
+from classical algebraic geometry states that every homogenous
+polynomial $f \in P^2\CC[x_0,x_1,x_2]$ can be written in the form
+\[
+   f(x_0,x_1,x_2) = \text{det}
+   \left( A x_0 + B x_1 + C x_2 \right)
+\]
+where $A,B,C$ are symmetric complex matrices which can be efficiently
+computed using Riemann theta functions. Furthermore, when the polynomial
+has real coefficients then $A,B,C$ are symmetric real matrices and such
+representations are important in the study of spectrahedra --- the
+solution spaces of semidefinite programs. \cite{PSV10}
+
+The purpose of this research is to develop efficient and performant
+algorithms for computing with Abelian functions on Riemann surfaces. The
+computational tools developed in this research program have far-reaching
+and varied applications.
+
