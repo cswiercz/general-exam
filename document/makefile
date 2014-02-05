@@ -1,13 +1,14 @@
 doc=general-exam
-
+LATEX=pdflatex
+BIBTEX=bibtex
 # %.pdf : %.tex
 # 	pdflatex $<
 
 default:
-	pdflatex $(doc).tex
-	bibtex $(doc)
-	pdflatex $(doc).tex
-	pdflatex $(doc).tex
+	$(LATEX) $(doc).tex
+	$(BIBTEX) $(doc)
+	$(LATEX) $(doc).tex
+	$(LATEX) $(doc).tex
 	open $(doc).pdf
 
 clean:
