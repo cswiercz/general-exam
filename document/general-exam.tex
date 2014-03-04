@@ -24,6 +24,7 @@
   language=Python,
   numbers=left,
   numberstyle=\tiny,
+  showstringspaces=false,
   xleftmargin=4pt,
   xrightmargin=4pt
 }
@@ -54,12 +55,14 @@
 % Custom operator declarations
 %
 \DeclareMathOperator{\ZZ}{\mathbb{Z}}
+\DeclareMathOperator{\RR}{\mathbb{R}}
 \DeclareMathOperator{\CC}{\mathbb{C}}
 \DeclareMathOperator{\KK}{\mathbb{C}}
-\DeclareMathOperator{\PP}{\mathbb{P}}
 \DeclareMathOperator{\hh}{\mathfrak{h}}
 \DeclareMathOperator{\re}{\text{Re}}
 \DeclareMathOperator{\im}{\text{Im}}
+%\DeclareMathOperator{\PP}{\mathrm{P}}
+\newcommand{\PP}[1]{\mathrm{P}^#1 \!}
 
 %
 % Make marginpars smaller font
@@ -70,8 +73,8 @@
 \newcommand{\thchar}[2] {\begin{bmatrix}#1\\#2\end{bmatrix}}
 \newcommand{\thcharsm}[2] {\left[ \begin{smallmatrix} #1 \\ #2 \end{smallmatrix} \right]}
 
-\title{General Examination -- Algebro-Geometric
-  Approach to Nonlinear Integrable Equations}
+\title{Computing with Riemann Surfaces and Abelian Functions \\ {\small
+    General Examination}}
 
 \author{
 Chris Swierczewski\\
@@ -79,22 +82,39 @@ University of Washington\\
 Department of Applied Mathematics}
 \date{\today}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \maketitle
 
-\input{./chapters/1-introduction.tex}
-\input{./chapters/2-alggeom.tex}
+\begin{abstract}
+The goal of my thesis is to develop the software tools necessary for
+computing with complex algebraic curves, Riemann surfaces and Abelian
+functions: periodic meromorphic functions $f : \CC^g \to \CC$ with $2g$
+independent periods. Although Abelian functions first arose in the study
+of Abelian integrals, they find application in solving non-linear
+integrable partial differential equations, complex algebraic geometry,
+and optimization. Algebraic curves and Riemann surfaces form the natural
+environment for studying these functions. The purpose of this document
+is to present the theory and algorithms going into these computations,
+demonstate the implementation of these algorithms in the Python software
+library {\tt abelfunctions (http://www.cswiercz.info/abelfunctions)},
+and present my goals for this research.
+\end{abstract}
 
+%\input{./chapters/1-introduction.tex}
+%\input{./chapters/2-alggeom.tex}
+%\input{./chapters/3-periodmatrices.tex}
+\input{./chapters/4-futurework.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Bibliography}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\bibliographystyle{amsalpha}
+\bibliographystyle{amsplain}
 \bibliography{general-exam}
 
 
