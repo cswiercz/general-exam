@@ -22,18 +22,23 @@
       \\ #2 \end{smallmatrix} \right]}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Computational Geometry of Complex Algebraic Curves}
+\title{Computational Applications of Riemann Surfaces and Abelian Functions}
+
 \subtitle{General Examination}
+
 \author{
   Chris Swierczewski\\
   {\tt cswiercz@uw.edu}
 }
+
 \institute{
   Department of Applied Mathematics\\
   University of Washington\\
   Seattle, Washington
 }
+
 \pgfdeclareimage[height=1.5cm]{titlepagelogo}{AAUgraphics/aau_logo_new_circle}
+
 \titlegraphic{
   \pgfuseimage{titlepagelogo}
 }
@@ -64,20 +69,56 @@
 %------------------------------------------------------------------------------
 
 
+\begin{frame}{Acknowledgments}{}
+  \begin{itemize}
+    \item Committee:
+      \begin{itemize}
+          \item Bernard Deconinck (advisor),
+          \item Randy Leveque,
+          \item Bob O'Malley,
+          \item William Stein,
+          \item Rekha Thomas (GSR).
+      \end{itemize}
+    \item Research Group:
+      \begin{itemize}
+        \item Olga Trichthenko,
+        \item Natalie Sheils,
+        \item Ben Segal.
+      \end{itemize}
+    \item Bernd Sturmfels (UC Berkeley),
+    \item Jonathan Hauenstein (NCSU),
+    \item Daniel Shapero (UW),
+    \item Grady Williams (UW),
+    \item Megan Karalus.
+  \end{itemize}
+\end{frame}
+
+
 
 \begin{frame}{The Kadomtsev--Petviashvili Equation}{}
   \vspace{10pt}
-  $u(x,y,t) = $ surface height of a 2d periodic shallow water wave.
+  $u(x,y,t) = $ surface height of a 2D periodic shallow water wave.
   \[
   \tfrac{3}{4} u_{yy} = \frac{\partial}{\partial x} \left(
   u_t - \tfrac{1}{4} \left(6uu_x + u_{xxx}\right) \right)
   \]
 
-  \begin{figure}
-    \centering
-    \includegraphics[height=0.4\textheight]{images/livekp.jpg}
-    \caption{KP waves off the coast of \^{I}le de R\'{e}, France.}
-  \end{figure}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{images/livekp.jpg}
+        \caption{\^{I}le de R\'{e}, France}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{images/sd-harbor-model.jpg}
+        \caption{Model of San Diego Bay}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 
@@ -86,27 +127,26 @@
   KP admits a (large) family of solutions of the form
   \[
   u(x,y,t) = 2 \partial_x^2 \log
-  \theta(Ux + Vy + Wt + z_0, \Omega),
+  \theta(Ux + Vy + Wt + z_0, \Omega) + c,
   \]
   where, for any $g \in \ZZ_+$,
   \begin{itemize}
-    \item $U,V,W,z_0 \in \CC^g$,
-    \item $\Omega \in \CC^{g \times g}$,
     \item $\theta : \CC^g \times \CC^{g \times g} \to \CC$
-      is the {\it``Riemann theta function''}.
+      is the {\it``Riemann theta function''},
+    \item $U,V,W,z_0 \in \CC^g$, $c \in \CC$,
+    \item $\Omega \in \CC^{g \times g}$.
   \end{itemize}
 
   \vspace{16pt}
 
-  Theta function solutions are \underline{dense} in the space of
+  These ``finite genus'' solutions are \underline{dense} in the space of
   periodic solutions to KP. (Abelian functions.)
 \end{frame}
 
 
 
 \begin{frame}{The Riemann Theta Function}
-  The Riemann theta function $\theta:\CC^g \times \CC^{g \times g} \to
-  \CC$
+  The Riemann theta function: $\theta : \CC^g \times \CC^{g \times g} \to \CC$
   \begin{align*}
   \theta(z,\Omega)
   &=
@@ -114,22 +154,64 @@
   e^{
     2 \pi i
     \left( \tfrac{1}{2} n \cdot \Omega n + n \cdot z \right)
-  } \\
-  \thetachar{\alpha}{\beta}(z,\Omega)
-  &=
-  e^{2 \pi i \left( \tfrac{1}{2} \alpha \cdot \Omega \alpha + \alpha
-    \cdot (z + \beta) \right)}
-  \theta(z + \Omega \alpha + \beta, \Omega)
+  } %, \\
+  %% \thetachar{\alpha}{\beta}(z,\Omega)
+  %% &=
+  %% e^{2 \pi i \left( \tfrac{1}{2} \alpha \cdot \Omega \alpha + \alpha
+  %%   \cdot (z + \beta) \right)}
+  %% \theta(z + \Omega \alpha + \beta, \Omega).
   \end{align*}
 
-  \begin{block}{Convergence}
+  \begin{block}{\bf Convergence}
     $\im(\Omega)$ must be positive definite. Additionally, we only
-    consider symmetric $\Omega$. So called space of ``Riemann
-    matrices'': $\hh_g$.
+    consider symmetric $\Omega$. Space of ``Riemann matrices'' / the
+    ``Siegel upper half space'': $\hh_g$.
   \end{block}
   \[
     \theta:\CC^g \times \hh_g \to \CC
   \]
+\end{frame}
+
+
+
+\begin{frame}{Abelian Functions}{}
+  Periodic, meromorphic functions
+  \[
+      f : \CC^g \to \CC
+  \]
+  with $2g$ independent periods.
+  \begin{itemize}
+      \item Example $g=1$: Weierstrass $\wp(z)$ function, Jacobi
+        elliptic functions $sn(z), cn(z), tn(z)$.
+      \item Example $g$: $u(x,y,t)$ for $g$ of choice.
+      \item {\it \bf Can be written in terms of $\theta$ functions.}
+  \end{itemize}
+
+  \begin{block}{}
+    These things can be computed.
+  \end{block}
+\end{frame}
+
+
+
+\begin{frame}{abelfunctions}{}
+  \setbeamercolor{block body}{use={block title},bg=block title.fg}
+  \begin{block}{}
+  \begin{figure}[t]
+    \centering
+%    \includegraphics[width=0.9\textwidth]{./images/abelfunctions.pdf}
+  \end{figure}
+  \end{block}
+
+  \vspace{16pt}
+
+  A Python library for computing with Abelian functions, Riemann
+  surfaces, and complex algebraic curves.
+  \begin{center}
+    {\tt https://github.com/cswiercz/abelfunctions}
+
+    {\tt https://www.cswiercz.info/abelfunctions}
+  \end{center}
 \end{frame}
 
 
@@ -146,18 +228,12 @@
 
 
 
-%------------------------------------------------------------------------------
-%\subsection*{Connection to Algebraic Geometry}
-%------------------------------------------------------------------------------
-
-
-
 \begin{frame}{Connection to Algebraic Geometry}{}
   \[
     u(x,y,t) = 2 \partial_x^2 \log
-    \theta(Ux + Vy + Wt + z_0, \Omega)
+    \theta(Ux + Vy + Wt + z_0, \Omega) + c
   \]
-  The constants $U,V,W,z_0,\Omega$ are not arbitrary. They come from a
+  The constants $U,V,W,z_0,c,\Omega$ are not arbitrary. They come from a
   {\it complex algebraic curve}: given a polynomial $f \in
   \CC[\lambda,\mu]$
   \[
@@ -167,33 +243,10 @@
       \cdots +
       \alpha_0(\lambda)
   \]
-  the curve $C$ is (basically) the set
+  the curve $C$ is the set
   \[
   C = \left\{ (\lambda,\mu) \in \CC^2 \, : \, f(\lambda,\mu) = 0 \right\}.
   \]
-\end{frame}
-
-
-
-\begin{frame}{\tt abelfunctions}{}
-  \setbeamercolor{block body}{use={block title},bg=block title.fg}
-  \begin{block}{}
-  \begin{figure}[t]
-    \centering
-    \includegraphics[width=0.8\textwidth]{./images/abelfunctions.png}
-  \end{figure}
-  \end{block}
-
-  \vspace{16pt}
-
-  A Python library for computing with complex algebraic curves and
-  Abelian functions.
-  \begin{center}
-    {\tt https://github.com/cswiercz/abelfunctions}
-
-    {\tt https://www.cswiercz.info/abelfunctions}
-
-  \end{center}
 \end{frame}
 
 
@@ -214,58 +267,70 @@
 
 
 
-\begin{frame}{Plane Algebraic Curves}{}
-  Non-singular, irreducible polynomial $f \in \CC[x,y]$.
+\begin{frame}{Algebraic Curves}{}
+  Given an irreducible polynomial $f \in \CC[x,y]$, a {\it (plane)
+    algebraic curve} is the set
   \[
-      C = \left\{ (x,y) \in \CC^2 \, : \, f(x,y) = 0 \right\}
-      \cup
-      \{\text{points at infinity}\}
+      C = \left\{ (x,y) \in \CC^2 \, : \, f(x,y) = 0 \right\} \subset
+      \CC^2.
   \]
+  Think of $C$ as a ``$y$-covering'' of $\CC_x$:
   \begin{itemize}
-    \item Non-singularity: $\nabla f \big|_C$ is nowhere zero.
-    \item Points at infinity: (made explicit using projective curves /
-      homogenization.)
-    \item $y$-coverings: let $x$ vary over $\CC^*$. What are all
-      possible $y$-roots?
+    \item Treat $y$ as dependent variable.
+    \item $x$ varies over $\CC_x$.
+    \item What are all possible $y$-roots to $f(x,y)=0$?
   \end{itemize}
 \end{frame}
 
 
 
 \begin{frame}{Riemann Surfaces}{}
-  \begin{center}
-    {\it Every non-singular complex plane algebraic curve is a compact
-      Riemann surface and vice versa.}
-  \end{center}
-  Riemann Surfaces
+  (Compact) Riemann Surfaces $X$:
+
   \begin{itemize}
     \item\alt<1>{Connected, 1-dimensional complex manifold.}{{\it Every
-        neighborhood of $P \in C$ looks like $U \subset
-        \mathbb{C}$.} ($P$ is called a {\it ``place''}.)}
+        neighborhood of $P \in X$ looks like $U \subset \CC$.}}
     \item<3-> Homeomorphic to a donut with $g$ holes.
       \begin{itemize}
         \item $g$ = {\it ``genus''}
-      \end{itemize}
-    \item<3-> Curve with singularities: {\it ``desingularize''} using
-      blow-ups / Puiseux series.
-      \begin{itemize}
-        \item Places represented by these Puiseux series.
-        \item Otherwise, $P = (\alpha, \beta)$.
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{\phantom{Demo}}{}
-  \begin{center}
-    {\huge \it Demo}
+\begin{frame}{Algebraic Curves and Riemann Surfaces}{}
+  \begin{gather*}
+    C : f(x,y) = 0 \\
+    \downarrow     \\
+    \text{``desingularize'' and ``compactify''} \\
+    \downarrow     \\
+    \text{Riemann surface } X
+  \end{gather*}
 
-    \vspace{1cm}
-
-    Curves and singularities.
-  \end{center}
+  \begin{itemize}
+    \item Desingularize:
+      \begin{itemize}
+        \item $C$ is singular at $(\alpha,\beta) \in \CC$ if
+          \[
+          \nabla f (\alpha, \beta) = 0
+          \]
+        \item Puiseux series ``unwrap'' curve at singularities.
+      \end{itemize}
+    \item Compactify: add points at infinity. %% (Process made explicit
+      %% using projective curves.)
+  \end{itemize}
 \end{frame}
+
+%% \begin{frame}{\phantom{Demo}}{}
+%%   \begin{center}
+%%     {\huge \it Demo}
+
+%%     \vspace{1cm}
+
+%%     Curves and singularities.
+%%   \end{center}
+%% \end{frame}
 
 
 
@@ -295,8 +360,8 @@
     \uncover<1->{
 
     % the reference volume
-    \draw[lightgray, thick]         (0,-1.5) arc (270:90:0.4cm and 1.5cm);
-    \draw[lightgray, thick, dashed] (0,1.5)  arc (90:-90:0.4cm and 1.5cm);
+    %\draw[lightgray, thick]         (0,-1.5) arc (270:90:0.4cm and 1.5cm);
+    %\draw[lightgray, thick, dashed] (0,1.5)  arc (90:-90:0.4cm and 1.5cm);
 
     \begin{scope}[very thick]
     % Quadrant II of Torus
@@ -340,11 +405,126 @@
     }
 
     \uncover<1>{
-    \draw (0,-3) node {$ \subset \CC^2$};
+    \draw (0,-4) node {Riemann surface $X$};
     }
 
+    \uncover<2-8>{
+    \draw (0,-4) node {$H_1(X,\ZZ) = $ closed, oriented, {\it homologous} cycles on $X$};
+    }
+
+    \uncover<2>{
+    % ``big'' null path
+    \draw[darkblue, decoration={markings,
+          mark=at position 0.25 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+        (-1,0) ..
+        controls (0,2) and (3,-1) ..
+        (-1,0);
+    \draw (0.5,-0.5) node {$\gamma$};
+    }
+
+    \uncover<3>{
+    % obviously small null path
+    \draw[darkblue, decoration={markings,
+          mark=at position 0.4 with {\arrow[thin]{latex}}},
+          postaction={decorate}]
+        (-0.3,0) ..
+        controls (0,0.4) and (0.6,-0.2) ..
+        (-0.3,0);
+    \draw (0.5,-0.5) node {$\gamma = 0$};
+    }
+
+    \uncover<4>{
+    % non-zero path example
+    \draw[darkblue, decoration={markings,
+          mark=at position 0.4 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+        (0,0) ..
+        controls (-3,3) and (-5,2) ..
+        (-5,0);
+    \draw[darkblue]
+        (-5,0) ..
+        controls (-5,-2) and (-2,-2) ..
+        (0,0);
+    \draw (-1.5,-0.5) node {$\gamma$};
+    }
+
+
+    \uncover<5>{
+    % non-zero path example
+    \draw[xshift=-3.2cm, yshift=0.1cm, darkblue, decoration={markings,
+          mark=at position 0.4 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+          (0.9,0) ..
+          controls (0.8,0.7) and (-0.8,0.7) ..
+          (-0.9,0);
+    \draw[xshift=-3.2cm, yshift=0.1cm, darkblue, dotted]
+          (-0.9,0) ..
+          controls (-0.8,-0.8) and (0.8,-0.8) ..
+          (0.9,0);
+    \draw (-1.5,-0.5) node {$\gamma \neq 0$};
+    }
+
+
+    \uncover<6>{
+    % sum of paths example
+    % gamma
+    \draw[darkblue, decoration={markings,
+              mark=at position 0.25 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+    (0,0) ellipse (5cm and 0.9cm);
+    \draw (0,-1.2) node {$\gamma$};
+    }
+
+
+    \uncover<7>{
+    % sum of paths example
+    % gamma_1
+    \draw[darkblue, decoration={markings,
+          mark=at position 0.4 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+          (0,0) ..
+          controls (3,-2) and (5,-2) ..
+          (5,0);
+    \draw[darkblue]
+          (5,0) ..
+          controls (5,2) and (3,2) ..
+          (0,0);
+
+    \draw[darkblue, decoration={markings,
+          mark=at position 0.4 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+          (0,0) ..
+          controls (-3,2) and (-5,2) ..
+          (-5,0);
+    \draw[darkblue]
+          (-5,0) ..
+          controls (-5,-2) and (-3,-2) ..
+          (0,0);
+
+    \draw (0,-1.2) node {$\gamma$};
+    }
+
+
+    \uncover<8>{
+    % sum of paths example
+    \draw[xshift=-3.2cm, darkblue, decoration={markings,
+              mark=at position 0.25 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+         (0,0) ellipse (2cm and 1.3cm);
+    \draw[xshift=3.2cm, darkblue, decoration={markings,
+              mark=at position 0.75 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+         (0,0) ellipse (2cm and 1.3cm);
+
+    \draw (0,-1.2) node {$\gamma = \gamma_1 + \gamma_2$};\
+    \draw (-4,1.7)  node {$\gamma_1$};
+    \draw (4,1.7)   node {$\gamma_2$};
+    }
+
+
+    \uncover<9>{
     % a-cycles
-    \uncover<2->{
     \draw[xshift=-3.2cm, darkblue, decoration={markings,
               mark=at position 0.25 with {\arrow[very thick]{latex}}},
           postaction={decorate}]
@@ -377,18 +557,28 @@
     \draw (3.2,-3)  node {$b_2$};
     }
 
-    \uncover<3>{
+    \uncover<9>{
     % cycle intersection properties
-    \draw (0,-3)   node {$a_i \circ a_j = 0$};
-    \draw (0,-3.5) node {$b_i \circ b_j = 0$};
-    \draw (0.1,-4) node {$a_i \circ b_j = \delta_{ij}$};
+    \draw (0,-2.5)   node {$a_i \circ a_j = 0$};
+    \draw (0,-3) node {$b_i \circ b_j = 0$};
+    \draw (0.1,-3.5) node {$a_i \circ b_j = \delta_{ij}$};
+    \draw (0,-4) node
+    {$H_1(X,\mathbb{Z}) = \text{span}\{a_1,\ldots,a_g,b_1,\ldots,b_g\}$};
     }
 
-    \uncover<4>{
-    % homology
+    \uncover<10>{
+    %% \draw[red, thick]         (0,-1.5) arc (270:90:0.4cm and 1.5cm);
+    %% \draw[red, thick, dashed] (0,1.5)  arc (90:-90:0.4cm and 1.5cm);
+    \draw[red, decoration={markings,
+          mark=at position 0.5 with {\arrow[very thick]{latex}}},
+          postaction={decorate}]
+    (2.4,0) arc (0:180:2.4cm and 0.8cm);
+    \draw[red, dashed] (-2.4,0)  arc (-180:0:2.4cm and 0.8cm);
     \draw (0,-4) node
-          {$H_1(C,\mathbb{Z}) = \text{span}\{a_1,\ldots,a_g,b_1,\ldots,b_g\}$};
+    {{\it Aside: what is $\gamma$ homologous to?}};
+    \draw (0,0) node {$\gamma$};
     }
+
    \end{scope}
   \end{tikzpicture}
   \end{figure}
@@ -414,37 +604,43 @@
 
 
 
-\begin{frame}{Integration on $\CC^*$}{}
-  {\it What do we integrate on $\CC^*$?} Not functions
-  \[
-      \omega(z) : \CC^* \to \CC^*
-  \]
-  but {\it 1-forms}
-  \[
-      \omega = \omega(z)dz, \quad \omega(z) \text{ meromorphic}
-  \]
-  on paths $\gamma : [0,1] \to \CC^*, \gamma(t) = z(t)$.
-  \[
-      \int_\gamma \omega =
-      \int_0^1 \omega \big( z(t) \big) dt
-  \]
-\end{frame}
+%% \begin{frame}{Integration on $\CC^*$}{}
+%%   {\it What do we integrate on $\CC^*$?} Not functions
+%%   \[
+%%       \omega(z) : \CC^* \to \CC^*
+%%   \]
+%%   but {\it 1-forms}
+%%   \[
+%%       \omega = \omega(z)dz, \quad \omega(z) \text{ meromorphic}
+%%   \]
+%%   on paths $\gamma : [0,1] \to \CC^*, \gamma(t) = z(t)$.
+%%   \[
+%%       \int_\gamma \omega =
+%%       \int_0^1 \omega \big( z(t) \big) dt
+%%   \]
+%% \end{frame}
 
 
 
-\begin{frame}{Integration on $C : f(x,y) = 0$}{}
-  {\it What do we integrate on $C$?} Not functions
+\begin{frame}{Integration on $X$}{}
+  {\bf Natural use for paths:} {\it integrate things on them.} \\
+
+  {\it 1-forms}: things you integrate on Riemann Surfaces
   \[
-      \omega(x,y) : \CC^* \times \CC^* \to C
+      \omega \in \Omega_X^1,
   \]
-  but {\it 1-forms}
+  where, it may {\it locally} be written
   \[
-      \omega = \omega(x,y)dx, \quad \omega(x,y) \text{ meromorphic}
+      \omega \Big|_{X_k \subset X} =
+      h_k\big(x,y(x)\big)dx, \quad h_k \text{ meromorphic}.
   \]
-  on paths $\gamma : [0,1] \to C, \gamma(t) = \big(x(t),y(t)\big)$.
+  Given a path
   \[
-      \int_\gamma \omega =
-      \int_0^1 \omega \big( x(t), y(t) \big) x'(t) dt
+      \gamma \in H_1(X,\mathbb{Z})$
+  \]
+  we can compute
+  \[
+      \int_\gamma \omega.
   \]
 \end{frame}
 
@@ -453,22 +649,27 @@
 \begin{frame}{Holomorphic Differentials}{}
   \begin{block}{}
     The set of all {\it holomorphic} 1-forms on a genus $g$ Riemann
-    surface $C$ forms a vector space over $\CC$
+    surface $X$ forms a vector space over $\CC$
     \[
-        H^1(C,\CC).
+        \Gamma(X,\Omega_X^1).
     \]
   \end{block}
 
+  \uncover<2>{
+  Finite dimensional:
+
   \begin{gather*}
-      \dim_{\CC} H^1(C,\CC) = g \\
-      \vspace{20pt} \\
-      H^1(C,\CC) = \text{span} \left\{ \omega_1, \ldots, \omega_g \right\}
+      \dim_{\CC} \Gamma(X, \Omega_X^1) = g \\
+      \vspace{16pt} \\
+      \Gamma(X, \Omega_X^1) =
+      \text{span} \left\{ \omega_1, \ldots, \omega_g \right\}
   \end{gather*}
 
   \begin{block}{}
     {\it Aside: why are there no holomorphic differentials on all of
-      $\CC^*$?}
+      $X = \CC^*$?}
   \end{block}
+  }
 \end{frame}
 
 
@@ -491,39 +692,74 @@
 
 
 
-\begin{frame}{Period Matrices...}{}
-  Matrices $A,B \in \CC^{g \times g}$:
+\begin{frame}{Period Matrices}{}
+  Define the matrices $A,B \in \CC^{g \times g}$:
   \[
-      A_{ij} = \int_{a_j} \omega_i, \quad B_{ij} = \int_{b_j} \omega_i
+      A_{ij} = \int_{a_j} \omega_i \quad \quad B_{ij} = \int_{b_j} \omega_i
   \]
-  {\it ``Period matrix''} $\tau = [A \; B] \in \CC^{g \times 2g}$. \\
+  {\it ``Period matrix''} $\tau = [A \; | \; B] \in \CC^{g \times 2g}$.
+
   \vspace{16pt}
+
+  \uncover<2>{
   Possible to choose $\omega_i$'s such that
   \[
-      \int_{a_j} \omega_i = \delta_{ij}.
+      \int_{a_j} \omega_i = \delta_{ij}. \quad \text{(``normalized 1-forms'')}
   \]
-  Period matrix:
+  Normalized period matrix
   \[
-      \tau = [I_{g \times g} \; \Omega].
+      \tau = [I \; | \; \Omega].
   \]
+  }
 \end{frame}
 
 
 
-\begin{frame}{...and Riemann matrices}{}
-  \begin{block}{Amazing Fact}
+\begin{frame}{Period Matrices and Riemann matrices}{}
+  \begin{block}{\bf Amazing Fact}
     $\Omega$ is a Riemann matrix.
   \end{block}
-  \begin{block}{Schottky Problem}
-    A Riemann matrix $\Omega$ comes from a period matrix \underline{if
-      and only if}
-    \[
-        u(x,y,t) = 2 \partial_x^2 \log
-        \theta(Ux + Vy + Wt + z_0, \Omega)
-    \]
-    satisfies the KP equation.
-  \end{block}
-  {\it \tiny (Some in the alg. geom. community don't like this proof.)}
+
+  \vspace{16pt}
+
+    \uncover<2-3> {
+      \begin{block}{\bf Schottky Problem (1880s)}
+        But not every Riemann matrix comes from a period matrix. Given a
+        Riemann matrix can we tell if it's a period matrix?
+      \end{block}
+    }
+
+    \uncover<3> {
+      \begin{block}{\bf Novikov Conjecture (1965) / Shiota Theorem (1986)}
+        A Riemann matrix $\Omega$ is a period matrix \underline{if and
+          only if} $\exists U,V,W,z0 \in \CC^g, c \in \CC$ such that
+        \[
+            u(x,y,t) = 2 \partial_x^2 \log
+            \theta(Ux + Vy + Wt + z_0, \Omega) + c
+        \]
+        satisfies the KP equation.
+      \end{block}
+    }
+
+  %% \begin{overprint}
+  %%   \onslide<2-3> {
+  %%     \begin{block}{\bf Schottky Problem (1880s)}
+  %%       Given a Riemann matrix can we tell if it's a period matrix?
+  %%     \end{block}
+  %%   }
+
+  %%   \onslide<3> {
+  %%     \begin{block}{\bf Novikov Conjecture (1965) / Shiota Theorem (1986)}
+  %%       A Riemann matrix $\Omega$ is a period matrix \underline{if and
+  %%         only if} $\exists U,V,W,z0 \in \CC^g, c \in \CC$ such that
+  %%       \[
+  %%           u(x,y,t) = 2 \partial_x^2 \log
+  %%           \theta(Ux + Vy + Wt + z_0, \Omega) + c
+  %%       \]
+  %%       satisfies the KP equation.
+  %%     \end{block}
+  %%   }
+  %% \end{overprint}
 \end{frame}
 
 
@@ -551,39 +787,52 @@
 
 
 \begin{frame}{Return to KP}{}
-What do we need to constuct periodic solutions to KP?
-\begin{gather*}
-  u(x,y,t) = 2 \partial_x^2 \log \theta(Ux + Vy + Wt + z_0, \Omega) \\
-  \uparrow \\
-  C: f(\lambda,\mu) = 0, \quad \{n_i,P_i\} \in C \\
-  \uncover<2->{
-  \uparrow \\
-  u(0,0,0), u'(0,0,0), \ldots, u^{(g-1)}(0,0,0)
-  }
-\end{gather*}
-\uncover<2->{
-{\bf Goal:} Develop black box algorithm for solving the I.V.P.
+What do we need to construct finite genus solutions to KP?
+\[
+  u(x,y,t) = 2 \partial_x^2 \log \theta(Ux + Vy + Wt + z_0, \Omega) + c
+\]
+\begin{enumerate}
+  \item<2-> Curve $C : f(\lambda,\mu) = 0$,
+  \item<3-> {\it ``Divisor''} $D$ on $X$: a finite, formal sum of places
+    \[
+    D = \sum_i n_i P_i, \quad P_i \in X.
+    \]
+\end{enumerate}
+
+\uncover<3->{
+
+  {\bf Goal:} Develop a fast, black box algorithm for producing and
+  evaluating these solutions.
+
 }
 \end{frame}
 
 
 
-\begin{frame}{Generalize Using Lax Pairs}{}
-  Lax pair formulation:
+\begin{frame}{Generalization to Other PDEs}{}
+  Given a finite genus solution formula
   \[
-      u_t = F(u,u_x,\ldots) \quad \leadsto \quad
-      \begin{array}{c}
-          X_t - T_x = [T,X], \\
-          X = X(u,\lambda), T = T(u,\lambda)
+      u = \left\{
+      \begin{array}{l}
+        u(x,t) \\
+        u(x,y,t)
       \end{array}
+      \right.
   \]
-  Given Lax pair and $g$ initial data we can generate genus $g$ solution
-  formula for any integrable equation. \\
+  the necessary constants and matrices are all computable using the
+  tools in {\tt abelfunctions}.
+  \begin{itemize}
+    \item KP is ``generic enough''.
+  \end{itemize}
 
   \vspace{16pt}
 
-  {\bf Goal:} Develop black box algorithm for solving the I.V.P. for any
-  given integrable PDE. (Given a Lax pair.)
+  \uncover<2->{
+
+    {\bf Goal:} Develop a framework for easily adding code to compute
+    finite genus solutions to other integrable equations.
+
+  }
 \end{frame}
 
 
@@ -595,9 +844,9 @@ What do we need to constuct periodic solutions to KP?
 
 
 \begin{frame}{Linear Matrix Representations}{}
-  Every homogenous polynomial $F = F(x,y,z)$ can be written as
+  Every polynomial $f \in \CC[x,y]$ can be written as
   \[
-      F(x,y,z) = \det(Ax + By + Cz), \quad A,B,C \text{ symmetric}.
+      f(x,y) = \det(A + Bx + Cy), \quad A,B,C \text{ symmetric}.
   \]
   Applications:
   \begin{itemize}
@@ -612,50 +861,52 @@ What do we need to constuct periodic solutions to KP?
 
 
 \begin{frame}{Computing $A,B,C$}{}
-  Combinatorial Approach (Palumann, Sturmfels, Vinzant)
+  Combinatorial Approach (Plaumann, Sturmfels, Vinzant)
   \[
       O \left( 2^{d-2 \choose 2} \right)
       \text{ compute time}
   \]
+
+  \uncover<2>{
   Helton--Vinnikov Theta Function Approach
   \[
       O \left( g^2 \right) \approx O \left( d^4 \right)
       \text{ compute time}
   \]
-  Uses Abel map, theta with characteristic, and the {\it Schotty--Klein
+  Uses Riemann theta, the {\it Abel map}, and {\it Schottky--Klein
     prime form}. \\
 
   \vspace{16pt}
 
-  {\bf Goal:} Develop high-performance (high-accuracy) algorithms for
-  computing LMRs.
+  {\bf Goal:} Develop high-performance algorithms for computing LMRs.
+  }
 \end{frame}
 
 
-\begin{frame}{Schottky--Klein Prime Form}{}
-  Riemann Surface ($g>0$) analogue of $f(z) = (z-\alpha)$.
-  \begin{gather*}
-      E : C \times C \to \mathbb{C}, \\
-      E(P,Q) = \frac{
-        \thetachar{\alpha}{\beta}
-        \big(
-        A(Q) - A(P)
-        \big)
-        }
-      {
-        \sqrt{\zeta(P)} \sqrt{\zeta(Q)}
-      },
-      \quad \zeta(P) = \nabla \thetachar{\alpha}{\beta}
-      \big( 0, \Omega \big) \cdot (\omega_1, \ldots, \omega_g)
-  \end{gather*}
-  Modulo some universal covering space argument...
-  \[
-      E(P,Q) = 0 \quad \Leftrightarrow \quad P=Q.
-  \]
+%% \begin{frame}{Schottky--Klein Prime Form}{}
+%%   Riemann Surface ($g>0$) analogue of $f(z) = (z-\alpha)$.
+%%   \begin{gather*}
+%%       E : C \times C \to \mathbb{C}, \\
+%%       E(P,Q) = \frac{
+%%         \thetachar{\alpha}{\beta}
+%%         \big(
+%%         A(Q) - A(P)
+%%         \big)
+%%         }
+%%       {
+%%         \sqrt{\zeta(P)} \sqrt{\zeta(Q)}
+%%       },
+%%       \quad \zeta(P) = \nabla \thetachar{\alpha}{\beta}
+%%       \big( 0, \Omega \big) \cdot (\omega_1, \ldots, \omega_g)
+%%   \end{gather*}
+%%   Modulo some universal covering space argument...
+%%   \[
+%%       E(P,Q) = 0 \quad \Leftrightarrow \quad P=Q.
+%%   \]
 
-  {\bf Goal:} Develop high-performance algorithms for computing prime
-  forms and rational functions on Riemann surfaces.
-\end{frame}
+%%   {\bf Goal:} Develop high-performance algorithms for computing prime
+%%   forms and rational functions on Riemann surfaces.
+%% \end{frame}
 
 
 %------------------------------------------------------------------------------
@@ -664,8 +915,8 @@ What do we need to constuct periodic solutions to KP?
 
 
 
-\begin{frame}{Schottky Problem}{}
-  All period matrices give a Riemann matrix, but not vice versa.
+\begin{frame}{Constructive Schottky Problem}{}
+  All period matrices are Riemann matrices, but not vice versa.
   \begin{itemize}
     \item $\dim_{\CC} \{ \text{period matrices} \} = 3g-3$
     \item $\dim_{\CC} \mathfrak{h}_g = g(g+1)/2$
@@ -673,14 +924,14 @@ What do we need to constuct periodic solutions to KP?
 
   \vspace{16pt}
 
-  \begin{block}{The Constuctive Schottky Problem}
+  \begin{block}{\bf The Constructive Schottky Problem}
     Given a Riemann matrix $\Omega$ can we produce a curve $C : f(x,y) =
     0$ with $\Omega$ as its period matrix?
   \end{block}
 
   \vspace{16pt}
 
-  {\bf Goal (Long Term):} Compute this $f$.
+  {\bf Goal (Long Term):} Compute such an $f$.
 \end{frame}
 
 
@@ -690,9 +941,13 @@ What do we need to constuct periodic solutions to KP?
 
     \vspace{20pt}
 
-    {\tt \scriptsize https://github.com/cswiercz/abelfunctions}
-    {\tt \scriptsize https://www.cswiercz.info/abelfunctions}
-    {\tt \scriptsize https://github.com/cswiercz/general-exam}
+    {\scriptsize
+      \begin{tabular}{rl}
+        Code: & {\tt https://github.com/cswiercz/abelfunctions} \\
+        Documentation: & {\tt https://www.cswiercz.info/abelfunctions} \\
+        General Exam: & {\tt https://github.com/cswiercz/general-exam}
+      \end{tabular}
+    }
   }
 \end{frame}
 
