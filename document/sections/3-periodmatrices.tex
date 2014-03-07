@@ -1,0 +1,410 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Computing Period Matrices of Algebraic Curves and the Abel Map}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This section introduces the concepts and algorithms needed to compute
+period matrices of algebraic curves. Each subsection here examines in
+close detail a major component of the algorithm and provides a
+theoretical overview of the component, an algorithm for computing the
+component, and examples presented in the Python package {\tt
+  abelfunctions} ({\tt www.cswiercz.info/abelfunctions}), a primary
+output of this research.
+
+%------------------------------------------------------------------------------
+\subsection{abelfunctions}
+%------------------------------------------------------------------------------
+
+
+
+%------------------------------------------------------------------------------
+\subsection{Puiseux Series}
+%------------------------------------------------------------------------------
+
+It's well known that about every point $\alpha \in \CC$ every analytic
+function $f = f(x)$ admits a local Taylor series representation in a
+neighborhood about $x = \alpha$. If the function is meromorphic it still
+admits a local series representation in the form of a Laurent series. In
+fact, for any single-valued complex function we can represent it in a
+neighborhood about some $x = \alpha$ using a series of the form
+\[
+    f(x) = \sum_{n=m}^\infty c_n (x-\alpha)^n
+\]
+for some $m \in \ZZ \cup \{-\infty\}$ depending on $\alpha$.
+
+%..............................................................................
+\subsubsection*{Theory}
+%..............................................................................
+
+%..............................................................................
+\subsubsection*{Algorithm}
+%..............................................................................
+
+%% \begin{algorithm}[h]
+%% \caption{POLYGON --- Returns the Newton polygon of the polynomial $F =
+%%   F(X,Y)$.}
+%% \label{alg: puiseux-polygon}
+%% \begin{algorithmic}[1]
+%% \Input
+
+%% $F,X,Y$ --- A polynomial.
+
+%% $I$ --- If $I=0$, return the Newton polygon. If $I=1$, return only the
+%% segments of the Newton polygon with negative slope. $I=1$ is used to
+%% compute terms beyond the first of the Puiseux series.
+
+%% \Output A set of lists $(q,m,l,\Phi)$ where
+%% \begin{itemize}
+%%   \item $q,m,l$ defines a line segment $\Delta: qj+mi=l$ in the $(i,j)$
+%%     plane,
+%%   \item $\Phi(Z) = \sum_{(i,j)\in\Delta} a_{ij} Z^{(i-i_0)/q} \in
+%%     \CC[Z]$ where $i_0$ is the smallest value of $i$ such that there is
+%%     a point $(i_0,j)\in\Delta$.
+%% \end{itemize}
+
+%% \Function{POLYGON}{$F,X,Y,I$}
+%%   \State
+%% \EndFunction
+%% \end{algorithmic}
+%% \end{algorithm}
+
+
+%% \begin{algorithm}[h]
+%% \caption{REGULAR --- Given the branching or singular part of a Puiseux
+%%   series, computes the regular part of the series.}
+%% \label{alg: puiseux-regular}
+%% \begin{algorithmic}[1]
+%% \Input
+
+%% $S$ --- a finite set of pairs $\{(\pi_k,F_k)\}$
+
+%% $X,Y$ --- the dependent and independent variables, respectively
+
+%% $H$ --- bound on the number of desired terms of the series
+
+%% \Output $R$ --- a finite set of pairs $\{(\pi_k,F_k)\}$ containing at
+%% least $H$ terms
+
+%% \Function{Regular}{$S,X,Y,H$}
+%%   \State $R \leftarrow ()$
+%%   \ForEach{$(\pi,F)$ {\bf in} $S$}
+%%     \While{$\text{len}(\pi) < H$}
+
+%%       \State $m \leftarrow \text{min} \{ j \; /$
+%%       \Call{COEFFICIENT}{$F,0,j$} $ \; | \; j \neq 0 \}$
+
+%%       \State $\beta \leftarrow$ \Call{COEFFICIENT}{$F,0,m$} /
+%%       \Call{COEFFICIENT}{$F,1,0$}
+
+%%       \State $\tau \leftarrow (1,1,m,\beta)$
+%%       \State $\pi \leftarrow \pi \cup \{\tau\}$
+%%       \State $F \leftarrow$ \Call{NEWPOLYNOMIAL}{$F,\tau,m$}
+%%     \EndWhile
+%%     \State $R \leftarrow R \cup \{\pi\}$
+%%   \EndFor
+%% \EndFunction
+%% \end{algorithmic}
+%% \end{algorithm}
+
+%..............................................................................
+\subsubsection*{Examples}
+%..............................................................................
+
+\begin{lstlisting}
+from abelfunctions import *
+from sympy.abc import x,y,t
+
+alpha = 0
+f = y**8 + x*y**5 + x**4 - x**6
+C = RiemannSurface(f,x,y)
+p = C.puiseux(alpha, nterms=3, parametric=t)
+
+for pi in p:
+    sympy.pprint(pi)
+\end{lstlisting}
+\begin{pyoutput}
+          11    7      
+  5    6*t     t     3 
+(t , - ----- - -- - t )
+         25    5       
+           9    5     
+   3    2*t    t      
+(-t , - ---- - -- + t)
+         3     3      
+\end{pyoutput}
+
+%------------------------------------------------------------------------------
+\subsection{Singularities}
+%------------------------------------------------------------------------------
+
+%
+\subsubsection*{Theory}
+%
+%
+\subsubsection*{Algorithm}
+%
+%
+\subsubsection*{Examples}
+%
+
+%------------------------------------------------------------------------------
+\subsection{Holomorphic 1-Forms}
+%------------------------------------------------------------------------------
+
+%
+\subsubsection*{Theory}
+%
+
+A compact genus $g$ Riemann surface admits a basis of $g$ holomorphic
+1-forms, or differentials, $\{\omega_1, \ldots, \omega_g\}$. These
+1-forms are all of the form
+\begin{equation*}
+  \omega_k(x,y) = \frac{P_k(x,y)}{\partial_y f(x,y)} dx,
+\end{equation*}
+where $P_k \in \CC[x,y]$ is of degree at most $d-3$ in $x$ and $y$, and
+are each holomorphic on all of $C$. The polynomials $P_k$ are called the
+{\it adjoint polynomials of $f$}.
+
+One condition on the $P_k$'s is immedately apparent: $P_k$ must have a
+zero, with sufficient multiplicity, at the places $P = (\alpha,\beta)$
+where $\partial_y f(x,y)$ vanishes. More preciscely, Noether showed that
+if a singular place $P$ has multiplicity $m_P$ then $P_k$ must have a
+zero of order at least $m_P - 1$ at $P$ \cite{Noether83}.
+
+%
+\subsubsection*{Algorithm}
+%
+%
+\subsubsection*{Examples}
+%
+
+%------------------------------------------------------------------------------
+\subsection{Analytic Continuation}
+%------------------------------------------------------------------------------
+
+%
+\subsubsection*{Theory}
+%
+
+A {\it path on a Riemann surface} is a continuous map $\gamma : [0,1]
+\to C \subset \CC^2$. That is, if $\gamma(t) = (x_\gamma(t),
+y_\gamma(t))$ then $f(x(t),y(t)) = 0$ for all $t \in [0,1]$. The roots
+of a polynomial are continuous as a function of the
+coefficients. Therefore, an $x$-path $x_\gamma : [0,1] \to \CC_x$ and an
+initial $y$-root $y_0 \in \CC_y$ are sufficient for defining a path on
+$C$ for the resulting $y$-path $y_\gamma : [0,1] \to \CC_y$ is
+completely determined by the curve
+\[
+    f(x_\gamma(t),y) = 0.
+\]
+The process of deriving this $y$-path from thed data provided is
+referred to as {\it analytic continuation}.
+
+A {\it closed path $\gamma$ on a Riemann surface} is one such that
+$\gamma(0) = \gamma(1)$. That is, a path is closed when $x_\gamma(0) =
+x_\gamma(1)$ and $y_\gamma(0) = y_\gamma(1)$. When constructing a path
+using an $x$-path it may be the case that the $x$-path $x_\gamma(t)$
+closed in $\CC_x$ but the derived $y$-path $y_\gamma(t)$ may not satisfy
+$y_\gamma(0) = y_\gamma(1)$. This situation is described in more detail
+in Section \ref{sec: monodromy} on monodromy groups of algebraic curves.
+
+%
+\subsubsection*{Algorithm}
+%
+
+To compute a path $\gamma$ on a Riemann surface $C$ we provide as input
+a continuous $x$-path $x_\gamma(t)$ and an initial $y$-value $y_0$ as
+input and wish to receive the resulting $y$-path $y_\gamma(t)$ as
+output. Analytic continuation of $y_0$ along $\gamma$ is a fundamental
+operation in {\tt abelfunction} since evaluation of and integration
+along paths is a done frequently. Therfore, it is important to make the
+constuction and evaluation along paths performant.
+
+We use numerical methods to estimate values along $y_\gamma(t)$. In
+general, the problem is phrased like so: given $\gamma(t_i) = (x_i,y_i)$
+as well as some later $t_{i+1} = t_i + \Delta t$ and $x_{i+1} =
+x_\gamma(t_{i+1})$ determine the value $y_{i+1} = y_\gamma(t_{i+1})$.
+
+A first and natural approach to solving this problem is to use a root
+finder. Given $x_{i+1}$ we numerically or symbolically solve the
+equation
+\[
+    f(x_{i+1},y) = 0.
+\]
+This produces $n$ $y$-roots $y_{i+1,1}, \ldots, y_{i+1,n}$. over
+$x_{i+1}$. However, even if one finds an effective and fast method for
+doing this with arbitrary degree polynomials $f$, the main problem with
+approach is determining which $y_{i+1,k}$ is equal to our desired root
+$y_{i+1}$. One could argue that the desired root is the one minimizing
+$|y_{i+1,k} - y_i|$ (the root closest to the previous $y$-root) but it
+is conceivable that this root can change as a function of $\Delta t$,
+especially if $\Delta t$ is too large.
+
+Another approach could be to use Newton iteration: given $x_{i+1}$ and
+an {\it initial guess} $y_i$ at $x_i$ use Newton iteration on the
+function $g(y) = f(x_{i+1}, y)$ to determine $y_{i+1}$. However, 
+
+%
+\subsubsection*{Examples}
+%
+
+%------------------------------------------------------------------------------
+\subsection{Monodromy} \label{sec: monodromy}
+%------------------------------------------------------------------------------
+
+%
+\subsubsection*{Theory}
+%
+%
+\subsubsection*{Algorithm}
+%
+%
+\subsubsection*{Examples}
+%
+
+%------------------------------------------------------------------------------
+\subsection{Homology}
+%------------------------------------------------------------------------------
+
+%
+\subsubsection*{Theory}
+%
+%
+\subsubsection*{Algorithm}
+%
+%
+\subsubsection*{Examples}
+%
+
+%------------------------------------------------------------------------------
+\subsection{Period Matrices}
+%------------------------------------------------------------------------------
+
+%
+\subsubsection*{Theory}
+%
+
+Period matrices are matrices obtained by integrating the holomorphic
+differentials $\omega_1, \ldots, \omega_g$ along the $a$-cycles
+$a_1,\ldots,a_g$ and $b$-cycles $b_1,\ldots,b_g$. Define the $g \times g$
+matrices
+\begin{align} \label{eqn: period-matrices}
+    A = \left( A_{ij} \right)_{i,j=1}^g,
+    \quad A_{ij} = \oint_{a_j} \omega_i, \\
+    B = \left( B_{ij} \right)_{i,j=1}^g,
+    \quad B_{ij} = \oint_{b_j} \omega_i.
+\end{align}
+The {\it period matrix} of $C$ is the $g \times 2g$ matrix
+\begin{equation} \label{eqn: period-matrix}
+  \tau = \left[ A \; B \right].
+\end{equation}
+We often normalize the differentials $\omega_i$ such that $A_{ij} =
+\delta_{ij}$ which results in the period matrix
+\[
+  \tau = \left[ I_{g \times g} \; \Omega \right].
+\]
+The matrix $\Omega \in \CC^{g \times g}$ is a {\it Riemann matrix}: an
+invertible, symmetric complex matrix with positive definite imaginary
+part. The columns of the period matrix of $C$ define a lattice
+\begin{equation} \label{eqn: period-lattice}
+    \Lambda = \{I m + \Omega n \; | \; m,n \in \ZZ^g\} \subset \CC^g
+\end{equation}
+in $\ZZ^g$. This lattice plays a very important role in the theory of
+algebraic curves since the quotient space
+\begin{equation} \label{eqn: jacobian}
+  J(C) = \CC^g / \Lambda \cong \mathbb{T}^{2g}
+\end{equation}
+is the {\it Jacobian} or {\it Jacobian variety} of the curve
+$C$. Jacobian varieties play a central role in the theory of algebraic
+curves. For example, the Torelli theorem states that a non-singular
+projective curve is completely determined by its Jacobian [XXX]. The
+Schottky problem establishes a link between the Jacobian and the
+Kadomtsev--Petviashvili equation by providing conditions on when a given
+Riemann matrix is a period matrix of some algebraic curve.
+
+% Schottky problem
+
+%
+\subsubsection*{Algorithm}
+%
+
+To compute $A_{ij}, B_{ij}$ we describe a way to integrate holomorphic
+differentials over any given path $\gamma \subset C$. Any such path can
+be parameterized by some parameter $t \in [0,1]$. That is, we consider
+\[
+    \gamma : [0,1] \to C, \quad \gamma(t) = (x_\gamma(t), y_\gamma(t)).
+\]
+Given this parameterization, we compute the integral of a holomorphic
+differential $\omega$
+\[
+    \int_\gamma \omega = \int_0^1 \omega \big(
+    x_\gamma(t), y_\gamma(t) \big)
+    \frac{dx_\gamma}{dt}(t) dt
+\]
+using a numerical integrator of choice.
+
+%
+\subsubsection*{Examples}
+%
+
+The \verb=RiemannSurface.period_matrix()= method returns the matrices
+$A$ and $B$ defined above. The Riemann matrix $\Omega$ is obtained by
+the \verb=RiemannSurface.riemann_matrix()= method.
+
+\begin{lstlisting}
+from abelfunctions import *
+from sympy.abc import x,y,t
+
+alpha = 0
+f = -x**7 + 2*x**3*y + y**3
+C = RiemannSurface(f, x, y)
+A,B = X.period_matrix()
+Omega = X.riemann_matrix()
+
+print 'A =\n', A
+print 'B =\n', B
+print 'Omega =\n', Omega
+\end{lstlisting}
+\begin{pyoutput}
+[XXX] Insert output here.
+\end{pyoutput}
+
+%------------------------------------------------------------------------------
+\subsection{The Abel Map}
+%------------------------------------------------------------------------------
+
+%
+\subsubsection*{Theory}
+%
+
+The {\it Abel map}, sometimes called the {\it Abel-Jacobi map}, makes
+concrete the relationship between an algebraic curve $C$ and its
+Jacobian $J(C)$. Given a place $P \in C$ the Abel map $A : C \to J(C)$
+is defined
+\begin{equation} \label{eq: abel-map}
+  A(P) = \left(
+  \int_{P_0}^P \omega_1, \ldots, \int_{P_0}^P \omega_g
+  \right)
+\end{equation}
+where $\omega_i, i=1,\ldots g$ are the normalized holomorphic
+differentials and $P_0$ is some fixed place on $C$.
+
+The Abel map is independent of the path chosen from $P_0$ to $P$ since
+any two paths $\gamma_1$ and $\gamma_2$ form a closed loop on
+$C$. Therefore, $\gamma_1 - \gamma_2$ is a linear combination of the
+cycles $a_1,\ldots,a_g,b_1,\ldots,b_g$ and thus the integral of
+$\omega_i$ is an element of $\Lambda$, which is zero in the quotient
+space $J(C)$. However, changing the choice of base point $P_0$ changes
+the map by a translation of the torus.
+
+%
+\subsubsection*{Algorithm}
+%
+
+Given that a method for integrating holomorphic differentials along an
+arbitrary path $\gamma$ is already established, the primary challenge in
+computing the Abel map comes from the construction of $\gamma$ itself.
+
+
+%
+\subsubsection*{Examples}
+%
