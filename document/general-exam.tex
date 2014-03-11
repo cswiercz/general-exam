@@ -1,11 +1,12 @@
-\documentclass[12pt,twoside]{article}
-\usepackage{fullpage}
+\documentclass[10pt]{article}
+%\usepackage{fullpage}
 
 %
 % Use droid mono for fixed-width font
 %
 \usepackage[defaultmono,scale=0.8]{droidmono}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
 \usepackage[subsection]{algorithm}
 \usepackage{algpseudocode}
 \renewcommand{\algorithmicrequire}{\textbf{Input:}\,}
@@ -15,6 +16,8 @@
 \newcommand{\Output}{\Ensure}
 \newcommand{\ForEach}{\ForAll}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,decorations,decorations.markings}
 \usepackage{caption}
 \usepackage{listings}
 \lstset{
@@ -38,14 +41,14 @@
 %
 % Theorems, Definitions, and Example
 %
-\theoremstyle{plain}
+%\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-
-\theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
 \newtheorem{example}[theorem]{Example}
 
 \numberwithin{equation}{section}
@@ -110,10 +113,10 @@ implementation of these algorithms in the Python software library
 research.
 \end{abstract}
 
-%\input{./sections/1-introduction.tex}
+\input{./sections/1-introduction.tex}
 \input{./sections/2-alggeom.tex}
-%\input{./sections/3-periodmatrices.tex}
-%\input{./chapters/4-futurework.tex}
+\input{./sections/3-periodmatrices.tex}
+\input{./sections/4-futurework.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Bibliography}

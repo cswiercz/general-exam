@@ -191,7 +191,7 @@ generalization of a theorem from classical planar geometry: {\it any
   two, distinct lines in $\PP{2}\CC$ intersect at exactly one point}.
 
 %------------------------------------------------------------------------------
-\subsection{Projective Plane Curves}
+\subsection{Projective Plane Curves} \label{sec: projective-plane-curves}
 %------------------------------------------------------------------------------
 
 The set of all points $(x_0, x_1, x_2)$ satisfying
@@ -229,17 +229,19 @@ is the set
 \]
 
 Important to the study of projective curves, and specifically in the
-computational work described here, are singular points. A point $a =
-(a_0 : a_1 : a_2) \in C$ is a {\it singular point of $C$}, or a {\it
-  multiple point of $C$}, if
-\[
-  \left(
-    \frac{\partial F}{\partial x_0},
-    \frac{\partial F}{\partial x_1},
-    \frac{\partial F}{\partial x_2}
-  \right) (a)
-  = (0,0,0).
-\]
+computational work described here, are singular points.
+\begin{definition} \label{def: singular-point}
+  A point $a = (a_0 : a_1 : a_2) \in C$ is a {\bf singular point of
+    $C$}, or a {\it multiple point of $C$}, if
+  \[
+      \left(
+        \frac{\partial F}{\partial x_0},
+        \frac{\partial F}{\partial x_1},
+        \frac{\partial F}{\partial x_2}
+      \right) (a)
+      = (0,0,0).
+  \]
+\end{definition}
 Consider the case when $a = (1 : 0 : 0)$ (corresponding to the point
 $(0,0)$ in the affine plane $\CC^2$) is a singular point of $F$. The
 affine poirtion of the curve is
@@ -290,7 +292,7 @@ the case $a = (0 : 0 : 1) \in l_\infty$ we use the affine curve
 \]
 and write $h$ as a sum of terms of the form $h_{ij}w^iz^j$.
 
-\begin{example} \label{ex: cubic}
+\begin{example} \label{ex: 2-cubic}
 Consider the cubic curve
 \[
     C: F(x_0,x_1,x_2) =
