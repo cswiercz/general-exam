@@ -36,7 +36,6 @@ the form
     =
     2 \partial_x^2 \log \theta(Ux + Vy + Wt + z_0, \Omega) + c.
 \end{equation}
-
 There is a deep connection between the Riemann matrix appearing in the
 second argument of the theta function above and period matrices.
 \begin{theorem}
@@ -51,10 +50,11 @@ second argument of the theta function above and period matrices.
   \]
   is a solution to the Kadomtsev--Petviashvili equation.
 \end{theorem}
-That is, the KP equation provides a certification for whether or not a
-Riemann matrix is a period matrix. In fact, as the genus $g$ increases
-the likelihood that a randomly chosen Riemann matrix is a period matrix
-decreases. By a simple counting argument,
+That is, the KP equation provides a solution to the {\it Schottky
+  problem}: given a Riemann matrix $\Omega$ can we determine if it is a
+period matrix? In fact, as the genus $g$ increases the likelihood that a
+randomly chosen Riemann matrix is a period matrix decreases. By a simple
+counting argument,
 \[
     \dim_{\CC} \hh_g = g(g+1)/2.
 \]
@@ -62,10 +62,9 @@ However,
 \[
     \dim_{\CC} \{ \text{period matrices} \} = 3g-3.
 \]
-For $g=2,3$ the dimensions are equal, implying that every Riemann matrix
-is a period matrix. (This is also the case when $g=1$.)  However, for $g
-> 3$ the space of Riemann matrices is larger than that of period
-matrices.
+For $g=2,3$ the dimensions are equal and every Riemann matrix is a
+period matrix. (This is also the case when $g=1$.)  However, for $g > 3$
+the space of Riemann matrices is larger than that of period matrices.
 
 The main point of this discussion is that the Kadomtsev--Petviashvili
 equation plays a very important role in the theory of period matrices
@@ -80,7 +79,7 @@ $X$. Deconinck \cite{DS98} provides a method for determining a divisor
 from a set of initial data to the KP equation, thus allowing a more
 ``physical'' input to the solution algorithm. That is, the machinery for
 computing solutions of the form above can be used to solve the initial
-value problem to KP.
+value problem to KP, in some sense.
 
 The algorithms and infrastructure needed to define divisors and compute
 these quantities is the first problem I plan to address in my thesis
@@ -105,7 +104,7 @@ with prescribed zeros and poles on $X$? That is, does a function $E : X
 It turns out that such a function ``almost'' exists yet satisfies enough
 properties to make the function useful.
 
-We first need a special class of theta characteristics.
+First we need a special class of theta characteristics.
 \begin{definition}
   A {\bf non-singular odd theta characteristic} $[\delta] := [\alpha,
     \beta]$ is a theta characteristic where, for a given $\alpha,\beta
@@ -293,5 +292,5 @@ Constructive Schottky Problem. That is,
   Given a Riemann matrix $\Omega \in \hh_g$ can we find a curve $C :
   f(x,y) = 0$ with $\Omega$ as its period matrix?
 \end{quote}
-This is a long term endeavor. Regardless, I look to examine possible
+This is a long-term endeavor. Regardless, I aim to examine possible
 avenues for addressing this problem.

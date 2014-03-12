@@ -3,12 +3,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This section introduces the concepts and algorithms needed to compute
-period matrices of Riemann surfaces. Each subsection here examines a
-major concept behind this calculation and provides a theoretical
-overview of the component, a brief description of the algorithm used to
-compute the component, and examples presented in Python using the
-software library {\tt abelfunctions}
-(\verb=www.cswiercz.info/abelfunctions=).
+period matrices of Riemann surfaces. Each subsection examines a major
+concept behind this calculation and provides a theoretical overview of
+the component, a brief description of the algorithm used to compute the
+component, and examples presented in Python using the software library
+{\tt abelfunctions}.
+
+Please note that {\tt abelfunctions}, though largely functional, is
+still in early stages of development. Therefore, the library syntax
+presented in this document may not match the syntax of future
+versions. Consult the documentation located at
+\verb=www.cswiercz.info/abelfunctions= for up to date information on the
+package.
 
 The two primary ingredients involved in computing period matrices are a
 {\it basis of closed cycles} on a Riemann surface $X$ and a {\it basis
@@ -78,8 +84,7 @@ section.
 Every analytic function $f = f(x)$ admits a local Taylor series
 representation in a neighborhood about $x = \alpha$. If the function is
 meromorphic it still admits a local series representation in the form of
-a Laurent series. In fact, for any complex function we can represent it
-in a neighborhood about some $x = \alpha$ using a series of the form
+a Laurent series. An extension of Taylor series are the Laurent series
 \[
     f(x) = \sum_{n=N}^\infty c_n (x-\alpha)^n
 \]
@@ -87,35 +92,35 @@ for some $N \in \ZZ \cup \{-\infty\}$ depending on $\alpha$. In both of
 these situations the variable $x$ is a {\it local coordinate} of $f$
 near the point $\alpha$.
 
-For algebraic curves, local coordinates are instead given in terms of
-Puiseux series.
+For algebraic curves, local coordinates are given in terms of Puiseux
+series, which can be thought of as an extension of Laurent series.
 \begin{definition} \label{def: puiseux}
-  A {\bf Puiseux series} expansion of a curve $C : f(x,y) = 0$ at point
-  $x=\alpha$ is a collection of $j = 1,\ldots,m \leq d = \text{deg}_y f$
-  series of the form
+  A {\bf Puiseux series} expansion of a curve $C : f(x,y) = 0$ at the
+  point $x=\alpha$ is a collection of $j = 1,\ldots,m \leq d =
+  \text{deg}_y f$ series of the form
   \begin{align*}
       P_j(t) =
       \begin{dcases}
-        x_j(t) = \alpha + \lambda_j t^{e_j} \\
-        y_j(t) = \sum_{k=N}^\infty \beta_{jk} t^{n_{jk}}
+        x_j(t) = \alpha + \lambda_j t^{e_j}, \\
+        y_j(t) = \sum_{k=N}^\infty \beta_{jk} t^{n_{jk}},
       \end{dcases}
   \end{align*}
   where $N \in \ZZ \cup \{-\infty\}$, $\alpha, \lambda_j, \beta_{jk} \in
-  \CC$, and $e_j,n_{jk} \in \ZZ$. Each Puiseux series $P_j$ is called a
+  \CC$, and $e_j,n_{jk} \in \ZZ$. Each Puiseux series $P_j$ is a
   ``place'' on $C$.
 \end{definition}
-A place $P_j = P_j(t)$, of course, satisfies
+A place $P_j = P_j(t)$ satisfies
 \[
     f\big(P_j(t)\big) := f\big(x_j(t), y_j(t)\big) = 0.
 \]
 When a Puiseux series $P_j(t)$ represents an expansion about a
 non-singular $(\alpha, \beta_j)$ on the curve then $P(0) =
-(\alpha,\beta)$. About singular places this is not necessarily the
-case. We list some additional important facts and properties of Puiseux
-series.
+(\alpha,\beta)$. This is not necessarily the case about singular
+places. We list some additional important facts and properties of
+Puiseux series.
 \begin{itemize}
   \item The integer $|e_j|$ is called the {\it branching number} or {\it
-    ramification index} of the series expansion at that place. $|e_j| >
+    ramification index} of the series expansion at that place: $|e_j| >
     1$ when $x = \alpha$ is a branch point of the curve.
   \item The number of Puiseux series $m$ at a branch point $x = \alpha$
     is strictly less than $d = \text{deg}_y f$. However, $d =
@@ -128,13 +133,13 @@ series.
                  y - y_j\left(
                      (e/\lambda_j)^{2 \pi ik / e_j}(x-\alpha)
                      \right)
-                 \right)
+                 \right),
     \]
     where the first product ranges over all Puiseux series $P_j$ at
     $x=\alpha$ and the second product ranges over all $y$-components
     $y_j(x_j)$ when solving for $t$ in terms of $x$. Note that a Puiseux
-    series $P_j$ with ramification index $|e_j|>1$ will split into
-    $|e_j|$ $y$-series in $x$.
+    series $P_j$ with ramification index $|e_j|>1$ splits into $|e_j|$
+    $y$-series in $x$.
 \end{itemize}
 
 %..............................................................................
@@ -150,8 +155,8 @@ curves. We give a brief outline of the process here.
     (\tau_1, \tau_2, \ldots, \tau_R)$ where $\tau_i =
     (q_i,\mu_i,m_i,\beta_i,\eta_i)$. These tuples define the relations
     \begin{align*}
-      X_{i-1} &= \mu_i X_i^{q_i} \\
-      Y_{i-1} &= (\beta_i + \eta_iY_i)X_i^{m_i}
+      X_{i-1} &= \mu_i X_i^{q_i}, \\
+      Y_{i-1} &= (\beta_i + \eta_iY_i)X_i^{m_i},
     \end{align*}
     where $i = 1, \ldots, R$. To obtain the desired Puiseux series we
     set $x = X_0$, $y = Y_0$, and $t = X_R$ and eliminate the
@@ -182,12 +187,12 @@ curves. We give a brief outline of the process here.
   \begin{align*}
     P_1(t) &=
     \begin{dcases}
-      x(t) = t \\
+      x(t) = t, \\
       y(t) = \frac{t^{4}}{2} - \frac{t^{9}}{16} + \frac{3 t^{14}}{128} + \cdots,
     \end{dcases} \\
     P_2(t) &=
     \begin{dcases}
-      x(t) = - \frac{t^{2}}{2} \\
+      x(t) = - \frac{t^{2}}{2}, \\
       y(t) =  - \frac{t^{3}}{2} - \frac{t^{8}}{64} + \frac{3 t^{13}}{4096} + \cdots.
     \end{dcases}
   \end{align*}
@@ -261,21 +266,20 @@ holomorphic 1-forms on $X$.
 
 A major role of Puiseux series is to provide a local coordinate chart at
 a singular point. For singular points of the form $a = (1 : \alpha :
-\beta)$ then the Puiseux series expansion $P_j$ of $f = f(x,y)$ such
-that $P_j(0) = (\alpha, \beta)$ is a coordinate chart centered at $(x,y)
-= (\alpha, \beta)$. $P_j$ tells us how to approach and pass through
-$(x,y) = (\alpha, \beta)$ on the curve. With this coordinate chart and
-those at other singular points of $C$ we can desingularize the curve and
-thus create an appropriate atlas for the corresponding Riemann surface
-$X$.
+\beta)$ the Puiseux series expansion $P_j$ of $f = f(x,y)$ such that
+$P_j(0) = (\alpha, \beta)$ is a coordinate chart centered at $(x,y) =
+(\alpha, \beta)$. $P_j$ tells us how to approach and pass through $(x,y)
+= (\alpha, \beta)$ on the curve. With this coordinate chart and those at
+other singular points of $C$ we can desingularize the curve and thus
+create an appropriate atlas for the corresponding Riemann surface $X$.
 
 For the purposes of computing the genus of $X$ as well as the space of
-holomorphic 1-forms $\Gamma(X,\Omega_X^1)$ on $X$ we will need to
-compute the delta invariant and the multiplicity of a singularity,
-respectively. The following discussion assumes the singularity is
-finite. To analyze infinite singular points we projective the curve $C$
-onto the line at infinity $l_\infty$ using the method described in
-Section \ref{sec: projective-plane-curves}.
+holomorphic 1-forms $\Gamma(X,\Omega_X^1)$ on $X$ we need to compute the
+delta invariant and the multiplicity of a singularity, respectively. The
+following discussion assumes the singularity is finite. To analyze
+infinite singular points we project the curve $C$ onto the line at
+infinity $l_\infty$ using the method described in Section \ref{sec:
+  projective-plane-curves}.
 
 {\bf Branching number.} The branching number $R$ of a singular point
 $(\alpha,\beta)$ is the sum of the branch numbers of the Puiseux series
@@ -290,36 +294,35 @@ degree of the lowest degree non-zero homogeneous term appearing in the
 polynomial expression for the curve centered at $(\alpha, \beta)$.
 
 {\bf Delta invariant.} The delta invariant $\delta_P$ of a singularity
-$P$ is the number of double points concentrated at the singularity. That
-is, the number of quadratic factors $(\alpha_i x - \beta_i y)^2$
+$P$ is the number of double points concentrated at the singularity. This
+is equal to the number of quadratic factors $(\alpha_i x - \beta_i y)^2$
 appearing in the tangent cone at the singularity. Let $S$ be the set of
 all singular points, finite and infinity, of $C$. Then the genus is
 given by
-\[
+\begin{equation} \label{eqn: genus-formula}
     g = \frac{(d-1)(d-2)}{2} - \sum_{P \in S} \delta_P.
-\]
+\end{equation}
 
 
 %
 \subsubsection*{Algorithm}
 %
 
-We first determine the finite singularities of $C : f(x,y) = 0$. Let
+First we determine the finite singularities of $C : f(x,y) = 0$. Let
 $R(x)$ be the resultant of $f(x,y)$ and $\partial_y f(x,y)$
 \cite{Griffiths89}. We compute the roots
 \begin{align*}
     S &= \{ x \in \CC \; | \; R(x) = 0, \partial_x R(x) = 0 \} \\
       &= \{ x_1, \ldots, x_s \}.
 \end{align*}
-That is, all roots of $R$ with multiplicity 2 or greater. For each $x_j
-\in S$ we compute the $y$-roots $\{y_{j1},\ldots,y_{jd}\}$ where $d =
-\text{deg}_y f$. The places $(x_j,y_{jk})$, $j=1,\ldots,s$,
+For each $x_j \in S$ we compute the $y$-roots $\{y_{j1},\ldots,y_{jd}\}$
+where $d = \text{deg}_y f$. The places $(x_j,y_{jk})$, $j=1,\ldots,s$,
 $k=1,\ldots,d$ satisfy
 \[
-    f(x_j,y_{jk}) = 0, \quad \partial_y f(x_j,y_{jk}) = 0
+    f(x_j,y_{jk}) = 0, \quad \partial_y f(x_j,y_{jk}) = 0,
 \]
 by the definition of the resolvent. Therefore, the singular places
-$(x_k,y_{jk})$ are those that also satisfy
+$(x_k,y_{jk})$ are those that satisfy
 \[
     \partial_x f(x_j,y_{jk}) = 0.
 \]
@@ -349,7 +352,7 @@ all Puiseux series $P_j$ such that $P_j(0) = (\alpha,\beta)$ where
 $\beta_{jN} t ^{n_{jN}}$ is the first non-zero, non-constant term
 appearing the in $y_j$. The delta invariant is equal to
 \[
-    \delta = \frac{1}{2}\sum_{j=1}^m r_j \text{Int}_{P_j} - r_j + 1
+    \delta = \frac{1}{2}\sum_{j=1}^m r_j \text{Int}_{P_j} - r_j + 1,
 \]
 where
 \[
@@ -368,11 +371,59 @@ $P_k(0) = (\alpha, \beta)$.
 \subsubsection*{Examples}
 %
 
-\vspace{24pt}
+We compute the finite singularities $a = (1 : \alpha : \beta)$ and the
+infinite singularities $a = (0 : 1 : \gamma)$ of the curve
+\[
+    C : f(x,y) = y^3 + 2x^3y - x^7 = 0.
+\]
+\begin{lstlisting}
+from abelfunctions import *
+from sympy.abc import x,y
 
-EXAMPLES WILL BE INSERTED HERE.
+f = y**3 + 2*x**3*y - x**7
+S = singularities(f,x,y)
 
-\vspace{24pt}
+for s,(m,delta,r) in S:
+    if s[0] == 0:
+        print 'Infinite Singularity at:', s
+    else
+        print 'Finite Singularity at:  ', s
+    print '  multiplicity     =', m
+    print '  delta invariant  =', delta
+    print '  branching number =', r
+    print
+\end{lstlisting}
+\begin{pyoutput}
+Finite Singularity at:   (1, 0, 0)
+  multiplicity     = 3
+  delta invariant  = 4
+  branching number = 2
+
+Infinite Singularity at: (0, 1, 0)
+  multiplicity     = 4
+  delta invariant  = 9
+  branching number = 1
+\end{pyoutput}
+The genus is computed using the {\tt genus()} function which, in
+addition to using the genus formula in Equation \eqref{eq:
+  genus-formula}, performs additional checks on the genus using
+algebraic and geometric properties discussed below.
+\begin{lstlisting}[firstnumber=16]
+d = 7  # the homogenous degree of f is 7
+g = (d-1)*(d-2)/2
+
+for s,(m,delta,r) in S:
+    g -= delta
+
+print 'degree       =', d
+print 'genus        =', g
+print 'genus(f,x,y) =', singularities.genus(f,x,y)
+\end{lstlisting}
+\begin{pyoutput}
+degree       = 7
+genus        = 2
+genus(f,x,y) = 2
+\end{pyoutput}
 
 %------------------------------------------------------------------------------
 \subsection{Holomorphic 1-Forms}
@@ -390,7 +441,7 @@ along piecewise smooth paths on $X$.
   is such that in each local coordinate $z_\alpha : U_\alpha \subset X
   \to \CC$,
   \[
-      \omega \Big|_{U_\alpha} = f_\alpha(z_\alpha) dz_\alpha
+      \omega \Big|_{U_\alpha} = f_\alpha(z_\alpha) dz_\alpha,
   \]
   and the appropriate compatibility conditions are satisfied under the
   action of transition functions on $U_\alpha \cup U_\beta$ where
@@ -412,14 +463,14 @@ finite-dimensional vector space of dimension $g$ over $\CC$. Thus, it
 has a basis of $g$ holomorphic 1-forms $\{\omega_1, \ldots, \omega_g\}$.
 
 For Riemann surfaces obtained by desingularizing and compactifying an
-algebraic curve $C : f(x,y) = 0$ these basis holomorphic 1-forms can
-written
+algebraic curve $C : f(x,y) = 0$ these basis holomorphic 1-forms can be
+written as
 \begin{equation*}
   \omega_k(x,y) = \frac{p_k(x,y)}{\partial_y f(x,y)} dx,
 \end{equation*}
 where $p_k \in \CC[x,y]$ is of degree at most $d-3$ in $x$ and $y$. The
 polynomials $p_k$ are called the {\it adjoint polynomials of $f$}. Note
-that since $y$ has explicit dependence on $x$, due to the equation
+that since $y$ has explicit dependence on $x$ due to the equation
 $f(x,y) = 0$, we can use $x$ as the local coordinate of the
 differential.
 
@@ -450,7 +501,7 @@ Given a ring $R$ and a field $S$ such that $R \subset S$, the {\it
   integral closure $\bar{R}$ of $R$ in $S$} is the ring of all elements
 $s \in S$ such that
 \[
-    s^n + r_{n-1}s^{n-1} + \cdots + r_1 s + r_0 = 0
+    s^n + r_{n-1}s^{n-1} + \cdots + r_1 s + r_0 = 0,
 \]
 for some choice of $n >0$ and $r_0,\ldots,r_{n-1} \in R$. That is
 $\bar{R}$ consists of all elements in $S$ satisfying some monic
@@ -484,8 +535,8 @@ To compute the adjoint polynomials we write
 \[
     p(x,y) = \sum_{i+j \leq d-3} c_{ij}x^iy^j
 \]
-where $d = \text{deg}_y f$. We then compute an integral basis
-$\{\beta_1,\ldots,\beta_m\}$ for $\overline{A(C)}$ using an algorithm of
+where $d = \text{deg}_y f$. We compute an integral basis
+$\{\beta_1,\ldots,\beta_m\}$ for $\overline{A(C)}$ using the algorithm of
 van Hoeij \cite{vanHoeij94}. The requirement that
 \[
     \beta_k(x,y) \sum_{i+j \leq d-3} c_{ij}x^iy^j \in \CC[x,y]
@@ -499,11 +550,42 @@ the adjoint polynomials we need.
 \subsubsection*{Examples}
 %
 
-\vspace{24pt}
+We compute a basis of holomorphic 1-forms on the Riemann surface $X$
+given by the desingularization and compactification of the algebraic
+curve
+\[
+    C : f(x,y) = y^3 + 2x^3y - x^7 = 0.
+\]
+\begin{lstlisting}
+from sympy.abc import x,y,t
 
-EXAMPLES WILL BE INSERTED HERE.
+f = y**3 + 2*x**3*y - x**7
+X = RiemannSurface(f,x,y)
+oneforms = X.holomorphic_differentials()
 
-\vspace{24pt}
+for omega in oneforms:
+    print 'omega(x,y) =\n'
+    sympy.pprint(omega, use_unicode=False)
+    print
+\end{lstlisting}
+\begin{pyoutput}
+omega(x,y) =
+
+    x*y    
+-----------
+   3      2
+2*x  + 3*y 
+
+omega(x,y) =
+
+      3    
+     x     
+-----------
+   3      2
+2*x  + 3*y
+\end{pyoutput}
+From this we can infer that the adjoint polynomials of the curve are
+$p_1(x,y) = xy$ and $p_2(x,y) = x^3$.
 
 
 %------------------------------------------------------------------------------
@@ -531,7 +613,7 @@ referred to as {\it analytic continuation}.
 A {\it closed path $\gamma$ on a Riemann surface} is one such that
 $\gamma(0) = \gamma(1)$. That is, a path is closed when $x_\gamma(0) =
 x_\gamma(1)$ and $y_\gamma(0) = y_\gamma(1)$. When constructing a path
-using an $x$-path it may be the case that the $x$-path $x_\gamma(t)$
+using an $x$-path it may be the case that the $x$-path $x_\gamma(t)$ is
 closed in $\CC_x$ but the derived $y$-path $y_\gamma(t)$ may not satisfy
 $y_\gamma(0) = y_\gamma(1)$. This situation is described in more detail
 in Section \ref{sec: monodromy} on monodromy groups of algebraic curves.
@@ -540,17 +622,18 @@ in Section \ref{sec: monodromy} on monodromy groups of algebraic curves.
 \subsubsection*{Algorithm}
 %
 
-To compute a path $\gamma$ on a Riemann surface $C$ we provide as input
-a continuous $x$-path $x_\gamma(t)$ and an initial $y$-value $y_0$ as
-input and wish to receive the resulting $y$-path $y_\gamma(t)$ as
+To compute a path $\gamma$ on a Riemann surface $C$ we provide a
+continuous $x$-path $x_\gamma(t)$ and an initial $y$-value $y_0$ as
+input and we wish to receive the resulting $y$-path $y_\gamma(t)$ as
 output. Analytic continuation of $y_0$ along $\gamma$ is a fundamental
 operation in {\tt abelfunctions} since evaluation of and integration
-along paths is a done frequently. Therefore, it is important to make the
-construction and evaluation along paths performant.
+along paths is done frequently. Therefore, it is important to make the
+construction and evaluation along paths as fast and efficient as
+possible.
 
 We use numerical methods to estimate values along $y_\gamma(t)$. In
-general, the problem is phrased like so: given $\gamma(t_i) = (x_i,y_i)$
-as well as some later $t_{i+1} = t_i + \Delta t$ and $x_{i+1} =
+general, the problem is phrased as given $\gamma(t_i) = (x_i,y_i)$ as
+well as some later $t_{i+1} = t_i + \Delta t$ and $x_{i+1} =
 x_\gamma(t_{i+1})$ determine the value $y_{i+1} = y_\gamma(t_{i+1})$.
 
 A first and natural approach to solving this problem is to use a root
@@ -562,27 +645,27 @@ equation
 This produces $n$ $y$-roots $y_{i+1,1}, \ldots, y_{i+1,d}$ over
 $x_{i+1}$. However, even if one finds an effective and fast method for
 doing this with arbitrary degree polynomials $f$, the main problem with
-approach is determining which $y_{i+1,k}$ is equal to our desired root
-$y_{i+1}$. One could argue that the desired root is the one minimizing
-$|y_{i+1,k} - y_i|$ (the root closest to the previous $y$-root) but it
-is conceivable that this closest can change as a function of $\Delta t$,
-especially if $\Delta t$ is too large.
+this approach is determining which $y_{i+1,k}$ is equal to the desired
+root $y_{i+1}$. One could argue that the desired root is the one
+minimizing $|y_{i+1,k} - y_i|$ (the root closest to the previous
+$y$-root) but it is conceivable that this closest can change as a
+function of $\Delta t$, especially if $\Delta t$ is too large.
 
 Another approach could be to use Newton iteration: given $x_{i+1}$ and
 an {\it initial guess} $y_i$ at $x_i$ use Newton iteration on the
 function $g(y) = f(x_{i+1}, y)$ to determine $y_{i+1}$. However, this
-approach suffers from the same problem as above: namely, the root
-$y_{i+1,k}$ produced by Newton iteration may change as a function of
-$\Delta t$. Too large of a $\Delta t$ may result in {\it branch
-  jumping}, where we converge to the incorrect $y$-root. Too small of a
-$\Delta t$ gives an inefficient numerical algorithm. Besides, the
-definition of ``small enough'' may change as a function of the curve $C$
-and the $x$-points $x_{i}$ and $x_{i+1}$.
+approach suffers from the same problem, namely, the root $y_{i+1,k}$
+produced by Newton iteration may change as a function of $\Delta t$. Too
+large of a $\Delta t$ may result in {\it branch jumping}, where we
+converge to the incorrect $y$-root. Too small of a $\Delta t$ gives an
+inefficient numerical algorithm. Further, the definition of ``small
+enough'' may change as a function of the curve $C$ and the $x$-points
+$x_{i}$ and $x_{i+1}$.
 
 To solve the problem of selecting an appropriate $\Delta t$ we use
-Smale's $\alpha$-theory. The purpose of
-Smale's $alpha$-theory is to answer the following questions about $g(y)
-= f(x_{i+1},y)$ for some finite set of points $Y \subset \CC$:
+Smale's $\alpha$-theory \cite{Smale85}. The purpose of Smale's
+$\alpha$-theory is to answer the following questions about $g(y) =
+f(x_{i+1},y)$ for some finite set of points $Y \subset \CC$:
 \begin{enumerate}
   \item From which points in $Y$ will Newton's method converge
     quadratically to some solution to $g$?
@@ -602,15 +685,14 @@ outline the analytic continuation algorithm here.
     f(x_{i+1},y)$ such that each element $y_{i+1,j}$ is the analytic
     continuation of $y_{i,j}$ to $x_{i+1}$.
   \item We first determine if the $y$-fibre $y_i$ is an {\it approximate
-    solution} to $g_{i+1}(y) = 0$. That is, if each element of $y_i$
-    lies in the quadratic convergence region of Newton's method on
-    $g_{i+1}$.
+    solution} to $g_{i+1}(y) = 0$. Does each element of $y_i$ lie in the
+    quadratic convergence region of Newton's method on $g_{i+1}$?
 
     If not, return to Step (1) with $\Delta t \mapsto \Delta t / 2$.
   \item Next, determine if the approximate solutions $y_{i,j}$ will
-    converge to distinct associated solutions $y_{i+1,j}$. That is, if
-    the approximate solutions will jump branches or stay on their
-    respective branches.
+    converge to distinct associated solutions $y_{i+1,j}$: will the
+    approximate solutions jump branches or stay on their respective
+    branches?
 
     If not, return to Step (1) with $\Delta t \mapsto \Delta t / 2$.
   \item The $y$-fibre satisfies the necessary conditions for Newton
@@ -623,19 +705,9 @@ Note that this algorithm requires analytically continuing all of the
 $y$-roots along an $x$-path in the complex plane since we cannot
 determine an appropriate step size for continuing a given root without
 knowing the locations of the other roots. Although this impacts the
-performance of the algorithm since we have to perform $d$ Newton
+performance of the algorithm since we have to perform $d$ sets of Newton
 iterations at each step, Smale's $\alpha$-theory provides a rigorous
 method for determining an appropriate step size.
-
-%
-\subsubsection*{Examples}
-%
-
-\vspace{24pt}
-
-EXAMPLES WILL BE INSERTED HERE.
-
-\vspace{24pt}
 
 
 %------------------------------------------------------------------------------
@@ -646,65 +718,104 @@ EXAMPLES WILL BE INSERTED HERE.
 \subsubsection*{Theory}
 %
 
-At a generic point $x = \alpha_0 \in \CC$ a curve $C : f(x,y) = 0$ will
-have $d$ distinct ordered $y$-roots $(y_0,\ldots,y_{d-1})$ at
+At a generic point $x = \alpha_0 \in \CC$ a curve $C : f(x,y) = 0$ has
+$d$ distinct ordered $y$-roots $(y_0,\ldots,y_{d-1})$ at
 $\alpha_0$. This collection of $y$-roots is sometimes called the {\it
   lift of} or the {\it fibre above} $x=\alpha_0$. However, at a point
 $x=b$ where both $f(x,y) = 0$ and $\partial_y f(x,y) = 0$ the number of
 distinct roots in the lift is strictly less than $d$. Such a point $x =
-b$ is called a {\it branch point} of $f$.
+b$ is called a {\it discriminant point} of $f$.
 
-A branch point has the property that if one were to analytically
-continue a fibre around some closed path encircling $x=b$ then the
-elements of the fibre will become permuted. Specifically, let
-$x_{\gamma} : [0,1] \to \CC$ be a piecewise differentiable oriented
-closed path in the complex $x$-plane encircling a branch point $x=b$
-exactly once in the positive direction and let $(y_0,\ldots,y_{d-1})$ be
-a fixed ordering of the fibre at $x_\gamma(0) = b$. Then, after
-analytically continuing the fibre around $x_\gamma$ and returning to
-$x_\gamma(1) = b$, the fibre is equal to
+A {\it branch point} $x=b$ is a discriminant point having the property
+that if one were to analytically continue an ordered fibre around some
+closed path encircling $b$ then the elements of the fibre are
+permuted. Specifically, let $x_{\gamma} : [0,1] \to \CC$ be a piecewise
+differentiable oriented closed path in the complex $x$-plane encircling
+a branch point $x=b$ exactly once in the positive direction and let
+$(y_0,\ldots,y_{d-1})$ be a fixed ordering of the fibre at $x_\gamma(0)
+= b$. Then, after analytically continuing the fibre around $x_\gamma$
+and returning to $x_\gamma(1) = b$, the fibre is equal to
 \[
-    (y_{\pi_b(0)}, \ldots, y_{\pi_b(d-1)})
+    (y_{\pi_b(0)}, \ldots, y_{\pi_b(d-1)}),
 \]
-where $\pi_b \in S_d$ is a permutation on $d$ elements.
+where $\pi_b \in S_d$ is a permutation on $d$ elements. In other wods, a
+{\it branch point} is a discriminant point with $\pi_b \neq \text{id}$.
 
-To analyze the permeation behavior of multiple branch points
+To analyze the permutation behavior of multiple branch points
 $\{b_1,\ldots,b_n\}$ we start by fixing some {\it base point}
 $x=\alpha_0$ in the complex plane such that $\alpha_0$ is not a branch
-point as well as fix an ordering $(y_0,\ldots,y_{d-1})$ of the fibre
-above $\alpha_0$. Let $x_{\gamma_k} : [0,1] \to \CC$ be a path
-encircling only the branch point $b_k$ in the positive direction which
-is disjoint from all of the other paths. Such a path is called a {\it
-  monodromy path} of $b_k$. In the case when $x = \infty$ is a branch
-point a monodromy path for $\infty$ is taken to be a circle going around
-all of the finite branch points in the negative direction. See Figure
-\ref{fig: mon} for an illustration of these paths.
+point and we fix an ordering $(y_0,\ldots,y_{d-1})$ of the fibre above
+$\alpha_0$. Let $x_{\gamma_k} : [0,1] \to \CC$ be a path encircling only
+the branch point $b_k$ in the positive direction which does not cross
+the other paths. Such a path is called a {\it monodromy path} of
+$b_k$. In the case when $x = \infty$ is a branch point a monodromy path
+for $\infty$ is taken to be a circle going around all of the finite
+branch points in the negative direction. See Figure \ref{fig: mon} for
+an illustration of these paths.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{images/mon.png}
-  \caption{The branch points $b_1,\ldots,b_n$ with their respective
-    monodromy paths $x_{\gamma_1}, \ldots, x_{\gamma_n}$ and the path
-    $x_{\gamma_\infty}$ around the point at infinity. {\it [NOTE: I will
-        replace this figure with one of my own that has appropriate
-        labeling. I stole this from Frauendiener, et. al.]}}
+%  \includegraphics[width=0.6\textwidth]{images/mon.png}
+
+  \begin{tikzpicture}
+    \tikzstyle{discpt}=[circle,draw=white,fill=black,thin,minimum size=2pt,
+                        radius=2pt]
+    \tikzstyle{monpath}=[decoration={markings,
+        mark=at position 0.5 with {\arrow[very thick]{latex}}},
+      postaction={decorate}]
+
+    % draw the discriminant points and interpolating dots
+    \node[discpt] (b1) at (-1,-2)     [label=right:$b_1$] {};
+    \node[discpt] (b2) at (0,-1)      [label=right:$b_2$] {};
+    \node at (0,0) {$\bullet$};
+    \node at (-0.1,0.4) {$\bullet$};
+    \node at (-0.3,0.8) {$\bullet$};
+    \node[discpt] (bn) at (-1,2)     [label=right:$b_n$] {};
+    \node[discpt] (a) at (-6,0)      [label=left:$\alpha_0$] {};
+
+    % the oriented paths
+    \draw[monpath] (-6,0) ..
+                   controls (-0.5,-3.5) and (0,-3) ..
+                   (0,-2);
+    \draw[monpath] (0,-2) ..
+                   controls (0,-1) and (-2.5,-1.2) ..
+                   (-6,0);
+    \node at (-1.5,-2.8) {$x_{\gamma_1}$};
+
+    \draw[monpath] (-6,0) ..
+                   controls (-2.5,1.2) and (0,1) ..
+                   (0,2);
+    \draw[monpath] (0,2) ..
+                   controls (0,3) and (-0.5,3.5) ..
+                   (-6,0);
+    \node at (-1.5,0.5) {$x_{\gamma_n}$};
+
+    % path around infinity
+    \draw[monpath] (-6,0) arc (180:0:4);
+    \draw          (2,0) arc (0:-180:4);
+    \node at (-4.5,2.8) {$x_{\gamma_\infty}$};
+
+    %% \begin{scope}[very thick]
+    %% \end{scope}
+  \end{tikzpicture}
+  \caption{The discriminant points $b_1,\ldots,b_n$ with their
+    respective monodromy paths $x_{\gamma_1}, \ldots, x_{\gamma_n}$ and
+    the path $x_{\gamma_\infty}$ around the point at infinity.}
   \label{fig: mon}
 \end{figure}
 
 Analytically continuing the ordered fibre $(y_0, \ldots, y_{d-1})$
 around each of the branch points results in $n+1$ permutations
 \[
-    \pi_{b_1}, \ldots, \pi_{b_n}, \pi_\infty \in \S_d
+    \pi_{b_1}, \ldots, \pi_{b_n}, \pi_\infty \in S_d
 \]
 The group generated by these permutations is called the {\it fundamental
-  group} of $\CC \backslash \{b_1, \ldots, b_n\}$ and is denoted
-\[
-    \pi_1(\PP{1}\CC \backslash \{b_1, \ldots, b_n\}, \alpha_0).
-\]
-Observe that, by the disjoint path condition on the monodromy paths,
-moving the base point $\alpha_0$ corresponds to conjugation of the
-generators of the fundamental group by some $\pi \in S_d$. Hence, the
-explicit dependence on the base point.
+  group} of $\CC \backslash \{b_1, \ldots, b_n\}$. It is denoted
+$\pi_1(\PP{1}\CC \backslash \{b_1, \ldots, b_n\}, \alpha_0).$ Observe
+that, by the disjoint path condition on the monodromy paths, moving the
+base point $\alpha_0$ corresponds to conjugation of the generators of
+the fundamental group by some $\pi \in S_d$. Hence, the monodromy group
+has explicit dependence on the base point.
 
 
 %
@@ -714,11 +825,11 @@ explicit dependence on the base point.
 The algorithm implemented in {\tt abelfunctions} for computing the
 monodromy group of a curve is based on the one described in
 \cite{FKS12}. Due to the technical nature of the algorithm only a
-summary will be provided here.
+summary is provided here.
 
 \begin{itemize}
   \item We require that the monodromy paths constructed stay
-    sufficiently far away from the branch points due to the numerical
+    sufficiently far from the branch points due to the numerical
     accuracy of Newton's method when used in the analytic continuation
     process. For each branch point, $b_i$ we let
     \[
@@ -726,13 +837,15 @@ summary will be provided here.
         \text{min}_{\substack{j=1,\ldots,n \\ j\neq i}} |b_i - b_j|.
     \]
     The minimal distance that any path $x_\gamma$ be from the branch
-    point $b_i$ is equal set to
+    point $b_i$ is
     \[
         R_i = \frac{\rho_i \kappa}{2}
     \]
-    where $\kappa \in (0,1]$ is a chosen relaxation factor.
+    where $\kappa \in (0,1]$ is a chosen relaxation factor. The
+      implementation of this algorithm in {\tt abelfunctions} uses
+      $\kappa = 3/5$.
   \item Let $b = b_i$ be the branch point where $\re b_i < \re b_j$ for
-    all $j \neq i$. $b$ is referred to as the {\it base branch
+    all $j \neq i$. The point $b$ is referred to as the {\it base branch
       point}. Choose the base point $\alpha_0$ to be the point $\alpha_0
     = b - R_b$, the point on the minimal distance circle encircling $b$.
   \item Order the remaining branch points $\{b_j\}_{j \neq i}$ by
@@ -757,11 +870,61 @@ summary will be provided here.
 \subsubsection*{Examples}
 %
 
-\vspace{24pt}
+We compute the monodromy group of the curve
+\[
+    C : f(x,y) = y^3 + 2x^3y - x^7 = 0,
+\]
+where the permutations $\pi_j \in \pi_1(\PP{1}\CC \backslash \{b_1,
+\ldots, b_n\}, \alpha_0)$ are presented in disjoint cycle notation.
+\begin{lstlisting}
+from abelfunctions import *
+from sympy.abc import x,y,t
 
-EXAMPLES WILL BE INSERTED HERE.
+f = y**3 + 2*x**3*y - x**7
+X = RiemannSurface(f,x,y)
 
-\vspace{24pt}
+b = X.branch_points()
+pi_1 = X.monodromy_group()
+
+for bj,pi_1j in zip(b,pi_1):
+    print 'branch point:', bj
+    print 'permutation: ', pi_1j
+    print
+\end{lstlisting}
+\begin{pyoutput}
+branch point: (-0.31969776999-0.983928563571j)
+permutation:  [(0, 2), (1,)]
+
+branch point: (0.836979627962-0.608101294789j)
+permutation:  [(0,), (1, 2)]
+
+branch point: (-1.03456371594+0j)
+permutation:  [(0,), (1, 2)]
+
+branch point: 0j
+permutation:  [(0, 2), (1,)]
+
+branch point: (0.836979627962+0.608101294789j)
+permutation:  [(0,), (1, 2)]
+
+branch point: (-0.31969776999+0.983928563571j)
+permutation:  [(0, 1), (2,)]
+
+branch point: oo
+permutation:  [(0, 2, 1)]
+\end{pyoutput}
+The method \verb=RiemannSurface.show_paths()= plots all the monodromy
+paths $x_{\gamma_j}$ in the complex $x$-plane. The base point
+$x=\alpha_0$ is marked in red.
+\begin{lstlisting}[firstnumber=14]
+X.show_paths()
+\end{lstlisting}
+\begin{pyoutput}
+<matplotlib.figure.Figure object at 0x107d60810>
+\end{pyoutput}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{images/monexample.pdf}
+\end{center}
 
 
 %------------------------------------------------------------------------------
@@ -788,19 +951,20 @@ continuous transformations but the splitting of one cycle into two via
 ``pinching''. A demonstration of this procedure is shown in Figure
 \ref{fig: pinching}. Two cycles can be added together by ``reversing''
 the pinching process and negation of a path corresponds to reversing its
-orientation. Therefore, the set of all cycles $H_1(X,\ZZ)$ forms a
-group. The equivalence of cycles on a Riemann surface is the same as
-that of closed paths on the complex plane (specifically, the Riemann
-sphere) upon which one integrate a fixed meromorphic function
-$g$. Closed paths not encircling a pole of $g$ are homologous to the
-zero path since they can be contracted to a point. The set of all paths
-encircling a single, given pole are all homologous to each other.
+orientation. The {\it first homology group} $H_1(X,\ZZ)$ is the set of
+all cycles on $X$ with the addition operation described. The equivalence
+of cycles on a Riemann surface is the same as that of closed paths on
+the complex plane (specifically, the Riemann sphere) upon which one
+integrate a fixed meromorphic function $g$. Closed paths not encircling
+a pole of $g$ are homologous to the zero path since they can be
+contracted to a point. The set of all paths encircling a single, given
+pole are all homologous to each other.
 
 \begin{figure}
   \centering
   %
   % ONE BIG PATH
-  \begin{tikzpicture}[scale=0.5]
+  \begin{tikzpicture}[scale=0.9]
     \colorlet{darkgreen}{green!50!gray}
     \colorlet{darkblue}{blue!50!gray}
 
@@ -850,16 +1014,16 @@ encircling a single, given pole are all homologous to each other.
               mark=at position 0.25 with {\arrow[very thick]{latex}}},
           postaction={decorate}]
     (0,0) ellipse (5cm and 0.9cm);
-    \draw[font=\small] (0,-0.5) node {$\gamma$};
+    \draw (0,-0.5) node {$\gamma$};
     \end{scope}
   \end{tikzpicture}
 
-  \vspace{12pt}
+  \vspace{24pt}
 
   %
   % PINCHING THE PATHS
   %
-  \begin{tikzpicture}[scale=0.5]
+  \begin{tikzpicture}[scale=0.9]
     \colorlet{darkgreen}{green!50!gray}
     \colorlet{darkblue}{blue!50!gray}
 
@@ -926,16 +1090,16 @@ encircling a single, given pole are all homologous to each other.
           (-5,0) ..
           controls (-5,-2) and (-3,-2) ..
           (0,0);
-    \draw[font=\small] (0,-1.1) node {$\gamma$};
+    \draw (0,-1.1) node {$\gamma$};
     \end{scope}
   \end{tikzpicture}
 
-  \vspace{12pt}
+  \vspace{24pt}
 
   %
   % SEPARATING THE PATHS
   %
-  \begin{tikzpicture}[scale=0.5]
+  \begin{tikzpicture}[scale=0.9]
     \colorlet{darkgreen}{green!50!gray}
     \colorlet{darkblue}{blue!50!gray}
 
@@ -989,19 +1153,20 @@ encircling a single, given pole are all homologous to each other.
           postaction={decorate}]
          (0,0) ellipse (2cm and 1.3cm);
 
-    \draw[font=\small] (0,-1.1) node {$\gamma = \gamma_1 + \gamma_2$};\
-    \draw[font=\small] (-4,1.7)  node {$\gamma_1$};
-    \draw[font=\small] (4,1.7)   node {$\gamma_2$};
+    \draw (0,-1.1) node {$\gamma = \gamma_1 + \gamma_2$};\
+    \draw (-4,1.7)  node {$\gamma_1$};
+    \draw (4,1.7)   node {$\gamma_2$};
     \end{scope}
   \end{tikzpicture}
   \caption{A genus $g=2$ Riemann surface $X$ with three homologous
     cycles. The process of ``pinching'' and separating a cycle $\gamma$
     into two cycle is allowed. Cycles can be added together by reversing
-    this pinching process. Negation of a path reverses orientation.}
+    this pinching process. Negation of a cycle corresponds to reversing
+    its orientation.}
   \label{fig: pinching}
 \end{figure}
 
-The {\it first homology group} $H_1(X,\ZZ)$ as a basis of cycles
+$H_1(X,\ZZ)$ has a basis of cycles
 $\{a_1,\ldots,a_g,b_1,\ldots,b_g\}$. That is, every cycle on $X$ can be
 written as a finite, integer linear combination of the $a$- and
 $b$-cycles. These cycles can be chosen such that they satisfy the
@@ -1011,8 +1176,9 @@ intersection properties
   b_i \circ b_j = 0, \quad \forall i \neq j \\
   a_i \circ b_j = \delta_{ij}, \quad \forall i,j = 1, \ldots, g
 \end{gather*}
-where $\delta_{ij}$ is the Kronecker delta. A basis of cycles fulfilling
-these intersection requirements is called a {\it canonical basis of
+where $\delta_{ij}$ is the Kronecker delta. That is, the only cycles
+that intersect are $a_i$ and $b_i$. A basis of cycles fulfilling these
+intersection requirements is called a {\it canonical basis of
   cycles}. Figure \ref{fig: cycle-basis} illustrates the canonical basis
 for a genus two Riemann surface.
 
@@ -1099,8 +1265,7 @@ for a genus two Riemann surface.
     \end{scope}
   \end{tikzpicture}
   \caption{A genus $g=2$ Riemann surface $X$ with the basis cycles
-    $\{a_1,\ldots,a_g,b_1,\ldots,b_g\}$ for the first homology group
-    $H_1(X,\ZZ)$.}
+    $\{a_1,a_2,b_1,b_2\}$ for the first homology group $H_1(X,\ZZ)$.}
   \label{fig: cycle-basis}
 \end{figure}
 
@@ -1109,11 +1274,11 @@ for a genus two Riemann surface.
 \subsubsection*{Algorithm}
 %
 
-Tretkoff and Tretkoff provide an algorithm for determining a canonical
-cycle basis for $H_1(X,\ZZ)$ given the monodromy group of a curve
-\cite{TretkoffTretkoff84}. Due to its complexity, we omit the details of
-the algorithm here. At its core, it computes a graph which encodes how
-to travel from the {\it base place} of $X$, chosen to be
+Tretkoff and Tretkoff \cite{TretkoffTretkoff84} provide an algorithm for
+determining a canonical cycle basis for $H_1(X,\ZZ)$ given the monodromy
+group of a curve. We omit the details of the algorithm here. At its
+core, it computes a graph which encodes how to travel from the {\it base
+  place} of $X$, chosen to be
 \[
     P_0 = (\alpha_0, \beta_0)
 \]
@@ -1134,12 +1299,78 @@ appropriate linear combinations of these intermediate cycles.
 \subsubsection*{Examples}
 %
 
-\vspace{24pt}
+We compute a homology basis for the Riemann surface $X$ obtained by
+desingularizing and compactifying the curve
+\[
+    C : f(x,y) = y^3 + 2x^3y - x^7 = 0.
+\]
+The $a$- and $b$- cycles are presented as a list $[\ldots,
+  s_i,(b_i,r_i), s_{i+1}, \ldots]$ where $s_i$ is the current sheet
+number, $b_i$ is a branch point of $C$, $r_i \in \ZZ$, and $s_{i+1}$ the
+the sheet reached after rotating $r_i$ times around $b_i$ and returning
+to the base point $\alpha_0$.
+\begin{lstlisting}
+from abelfunctions import *
+from sympy.abc import x,y,t
 
-EXAMPLES WILL BE INSERTED HERE.
+f = y**3 + 2*x**3*y - x**7
+X = RiemannSurface(f,x,y)
+a,b = X.homology()
 
-\vspace{24pt}
+# print the a-cycles
+for i in range(g):
+    print 'a_%d:'%(i+1)
+    print a[i]
+    print
 
+# print the b-cycles
+for i in range(g):
+    print 'b_%d:'%(i+1)
+    print b[i]
+    print
+\end{lstlisting}
+\begin{pyoutput}
+a_1:
+[0, ((-0.31969776999025984-0.9839285635706635j), 1), 2,
+ ((-1.0345637159435732+0j), -1), 1,
+ ((-0.31969776999025984+0.9839285635706635j), -1), 0]
+
+a_2:
+[0, (0j, 1), 2, ((-0.31969776999025984-0.9839285635706635j), -1), 0]
+
+b_1:
+[0, ((-0.31969776999025984+0.9839285635706635j), 1), 1,
+ ((0.8369796279620464-0.6081012947885316j), 1), 2,
+ ((-0.31969776999025984-0.9839285635706635j), -1), 0]
+
+
+b_2:
+[0, ((-0.31969776999025984-0.9839285635706635j), 1), 2,
+ ((-1.0345637159435732+0j), -1), 1,
+ ((-0.31969776999025984+0.9839285635706635j), -1), 0, (oo, 1), 2,
+ ((-0.31969776999025984-0.9839285635706635j), -1), 0,
+ ((-0.31969776999025984+0.9839285635706635j), 1), 1,
+ ((0.8369796279620464-0.6081012947885316j), 1), 2,
+ ((-0.31969776999025984-0.9839285635706635j), -1), 0]
+\end{pyoutput}
+We can plot the projection of the cycle in the complex $x$- and
+$y$-planes. In this example, we plot the cycle $a_1$ by computing 512
+interpolating points on the path. The $x$-projection $x_\gamma$ is in
+blue and the $y$-projection $y_\gamma$ is in green.
+\begin{lstlisting}
+alpha = X.base_point()
+betas = X.base_lift()
+P0 = alpha, betas
+
+gamma = RiemannSurfacePath((f,x,y), P0, cycle = a[0])
+gamma.plot(512)
+\end{lstlisting}
+\begin{pyoutput}
+<matplotlib.figure.Figure at 0x106e9cd90>
+\end{pyoutput}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{images/homexample.pdf}
+\end{center}
 
 %------------------------------------------------------------------------------
 \subsection{Period Matrices} \label{sec: period-matrices}
@@ -1159,7 +1390,7 @@ matrices
     B = \left( B_{ij} \right)_{i,j=1}^g,
     \quad B_{ij} = \oint_{b_j} \omega_i.
 \end{align*}
-The {\it period matrix} of $X$ is the $g \times 2g$ matrix
+A {\it period matrix} of $X$ is the $g \times 2g$ matrix
 \[
   \tau = \left[ A \; B \right].
 \]
@@ -1168,25 +1399,25 @@ We often normalize the differentials $\omega_i$ such that $A_{ij} =
 \begin{equation} \label{eqn: period-matrix}
   \tau = \left[ I_{g \times g} \; \Omega \right].
 \end{equation}
-By Riemann's bilinear relations this equivalent to setting $\Omega =
-A^{-1}B$. The matrix $\Omega \in \CC^{g \times g}$ is a {\it Riemann
-  matrix}: an invertible, symmetric complex matrix with positive
-definite imaginary part. The columns of $\tau$ define a lattice
+This is equivalent to setting $\Omega = A^{-1}B$. The matrix $\Omega \in
+\CC^{g \times g}$ is a {\it Riemann matrix}: an invertible, symmetric
+complex matrix with positive definite imaginary part. The columns of
+$\tau$ define a lattice
 \[
-    \Lambda = \{I m + \Omega n \; | \; m,n \in \ZZ^g\} \subset \CC^g
+    \Lambda = \{I m + \Omega n \; | \; m,n \in \ZZ^g\} \subset \CC^g.
 \]
-in $\ZZ^g$. This lattice plays a very important role in the theory of
-algebraic curves since the quotient space
+This lattice plays an important role in the theory of algebraic curves
+since the quotient space
 \begin{equation} \label{eqn: jacobian}
   J(C) = \CC^g / \Lambda \cong \mathbb{T}^{2g}
 \end{equation}
 is the {\it Jacobian} or {\it Jacobian variety} of the curve
 $C$. Jacobian varieties play a central role in the theory of algebraic
-curves. For example, the Torelli theorem states that a non-singular
-projective curve is completely determined by its Jacobian [XXX]. The
-Schottky problem establishes a link between the Jacobian and the
-Kadomtsev--Petviashvili equation by providing conditions on when a given
-Riemann matrix is a period matrix of some algebraic curve.
+curves. For example, the Torelli theorem \cite{Mumford99} states that a
+non-singular projective curve is completely determined by its
+Jacobian. The Schottky problem establishes a link between the Jacobian
+and the Kadomtsev--Petviashvili equation by providing conditions on when
+a given Riemann matrix is a period matrix of some algebraic curve.
 
 % Schottky problem
 
@@ -1194,11 +1425,11 @@ Riemann matrix is a period matrix of some algebraic curve.
 \subsubsection*{Algorithm}
 %
 
-To compute $A_{ij}, B_{ij}$ we first describe a method for numerically
+To compute $A_{ij}, B_{ij}$ we first a method for numerically
 integrating holomorphic differentials over any given path $\gamma
-\subset C$. Here, we only consider paths on the curve; that is, paths
-with finite $x$- and $y$-components. Any such path can be parameterized
-by some parameter $t \in [0,1]$. That is, we consider
+\subset C$. We only consider finite paths on the curve: paths with
+finite $x$- and $y$-components. Any such path can be parameterized by
+some parameter $t \in [0,1]$. Let
 \[
     \gamma : [0,1] \to C, \quad \gamma(t) = \Big( x_\gamma(t),
     y_\gamma\big(x_\gamma(t)\big) \Big).
@@ -1207,7 +1438,7 @@ by some parameter $t \in [0,1]$. That is, we consider
 Given this parameterization, we compute the integral of a holomorphic
 differential $\omega$. Letting $x$ and $y$ represent the local
 coordinates in $\CC^2$ we have
-\begin{align*}
+\begin{align}
     \int_\gamma \omega
     &=
     \int_\gamma \omega\big(x,y(x)\big)dx \notag \\
@@ -1215,13 +1446,13 @@ coordinates in $\CC^2$ we have
     \int_0^1 \omega \Big(
     x_\gamma(t), y_\gamma\big(x_\gamma(t)\big) \Big)
     \frac{dx_\gamma}{dt}(t) dt. \label{eqn: path-integral}
-\end{align*}
+\end{align}
 
-In {\tt abelfunctions} we only construct paths $\gamma \subset C$ where
+In {\tt abelfunctions} we construct paths $\gamma \subset C$ where
 $x_\gamma$ either parameterizes a line from some $z_0\in\CC$ to
 $z_1\in\CC$
 \[
-    x_\gamma(t) = z_0(1-t) + z_1t
+    x_\gamma(t) = z_0(1-t) + z_1t,
 \]
 or arcs on a circle of radius $R$ with center $w\in\CC$
 \[
@@ -1231,7 +1462,10 @@ where $\theta$ is the starting angle and $\theta + \Delta \theta$ is the
 ending angle on the circle. We use the analytic continuation methods
 described in Section \ref{sec: analytic-continuation} to compute
 $y_\gamma(x_\gamma(t))$. Finally, to compute the integral in Equation
-\eqref{eqn: path-integral} we use a numerical integrator of choice.
+\eqref{eqn: path-integral} we use a numerical integrator of choice. {\tt
+  abelfunctions} allows one to use any numerical integrator provided by
+the {\tt scipy} Python package that can integrate complex-valued
+functions. The Romberg method \cite{wiki:Romberg} is chosen by default.
 
 %
 \subsubsection*{Examples}

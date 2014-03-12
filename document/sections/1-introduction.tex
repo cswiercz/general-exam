@@ -5,17 +5,17 @@
 The Kadomtsev-Petviashvili (KP) equation is a partial differential
 equation used to describe the surface height of a two-dimensional
 periodic shallow water wave. Depending on certain physical
-considerations [XXX], which we will ignore, one can derive either of the
+considerations, which we will ignore, one can derive either of the
 following two equations
 \begin{align}
   \left(-4u_t + 6uu_x + u_{xxx}\right)_x + 3\sigma^2 u_{yy} = 0, \quad
   \sigma^2 = -1, \label{eqn: KP1} \\
   \left(-4u_t + 6uu_x + u_{xxx}\right)_x + 3\sigma^2 u_{yy} = 0, \quad
-  \sigma^2 = +1. \label{eqn: KP2}
+  \sigma^2 = +1, \label{eqn: KP2}
 \end{align}
 where $u(x,y,t)$ is the surface height as a function of position $(x,y)$
 and time $t$. In the sequel we do not rely on this distinction and we
-simply refer to the ``KP equation''.
+simply refer to the {\it KP equation}.
 
 The KP equation admits a large family of quasiperiodic solutions of the
 form
@@ -69,15 +69,16 @@ Note that $\theta \thcharsm{0}{0}(z,\Omega) = \theta(z,\Omega)$. See
 \cite{NIST:DLMF,MumfordI07,MumfordII07} for further definitions and
 properties of the Riemann theta function.
 
-These soltuions \eqref{eqn: kpsol} are the so-called ``theta function
-solutions'' to the KP equation and families of such solutions exist for
+These solutions \eqref{eqn: kpsol} are the so-called {\it finite genus
+  solutions} to the KP equation and families of such solutions exist for
 every $g > 0$. In fact, the totality of solutions of this form are dense
 the space of all periodic solutions to KP \cite{Krichever93}. The
 constants $c\in\CC$, $U,V,W,z_0 \in \CC^g$ and $\Omega \in \hh_g$, as
-well as the {\it genus} $g$, are determined from a Riemann surface any
-such Riemann surface can produce a solution to KP \cite{Dubrovin81}. We
-postpone the definition of these constants in terms of known quantities
-until more machinery is developed in the following sections.
+well as the {\it genus} $g$, are determined from a Riemann surface. Any
+such Riemann surface can produce a family of solutions to KP
+\cite{Dubrovin81}. We postpone the definition of these constants in
+terms of known quantities until more machinery is developed in the
+following sections.
 
 In general, periodic solutions to integrable partial differential
 equations are {\it Abelian functions}.
@@ -87,40 +88,37 @@ equations are {\it Abelian functions}.
   $w_1,\ldots,w_{2g} \in \CC^g$ linearly independent over the real
   numbers where
   \[
-      f(z + w) = f(z)
+      f(z + w) = f(z),
   \]
   for all $z \in \CC^g$. When $g=1$ these are the {\it elliptic
-    functions}. The $g \times 2g$ matrix of column vectors $(w_i)$ is
-  called the {\it period matrix} of the $f$.
+    functions}.
 \end{definition}
 Abelian functions first arose from the study of Abelian integrals
 \[
-    \int_{z_0}^{z_1} \frac{P(z,w)}{Q(z,w)}dz
+    \int_{z_0}^{z_1} \frac{P(z,w)}{Q(z,w)}dz,
 \]
 where $P,Q \in \CC[z,w]$ and $z$ and $w$ are related by an algebraic
-equation $f(z,w) = 0$ with $f \in \CC[z,w]$. The Jacobi Inversion
-Problem is the problem of inverting such integrals, the solution to
-which are Abelian functions.
+equation $f(z,w) = 0$ with $f \in \CC[z,w]$.
 
 Riemann theta functions play a central role in the theory of Abelian
 functions in that all Abelian functions can be written as a rational
 function of the Riemann theta function and its derivatives (such as in
-the KP solution above).  The primary focus of study is the method of
-computation of these Abelian functions, particularly those arising in
-applications.
+the KP solution above).  The primary focus of my study is the
+construction and numerical evaluation of these Abelian functions,
+particularly those arising in applications.
 
-Abelian functions are applicable in fields other than nonlinear partial
-differential equations. For example, they make explicit many
-computations such as those in the study of solitary waves, black hole
-space-times, and algebraic curves. One example in particular is the
-calculation of bitangent lines of plane algebraic curves; useful for
-computations in optimization-related fields such as algebraic geometry
-and convex optimization. In algebraic geometry, bitangents can represent
-smooth complex plane quartic curves as both a symmetric determinant of a
-linear form (or, determinantal representation) as well as a sum of three
-squares \cite{PSV11}. In convex optimization, bitangents are used to
-construct a ``visibility complex'' which, in turn, is used to solve the
-shortest path problem in Euclidean space \cite{PocchiolaVegter93}.
+Abelian functions are applicable in fields other than nonlinear water
+waves. For example, they make explicit many computations such as those
+in the study of solitary waves, black hole space-times, and algebraic
+curves. One basic example is the calculation of bitangent lines of plane
+algebraic curves; these are useful for computations in
+optimization-related fields such as algebraic geometry and convex
+optimization. Bitangents can used to represent smooth complex plane
+quartic curves as either a symmetric determinant of a linear form or as
+a sum of three squares \cite{PSV11}. In convex optimization, bitangents
+are used to construct a {\it visibility complex} which, in turn, is used
+to solve the shortest path problem in Euclidean space
+\cite{PocchiolaVegter93}.
 
 \begin{definition} \label{def: bitangent}
   A {\bf bitangent} to a plane algebraic curve $C : f(x,y) = 0, f \in
@@ -134,7 +132,7 @@ determines that a degree four complex curve admits exactly 28 complex
 bitangents \cite{Plucker34}. In particular, Pl\"{u}cker showed that the
 number of real bitangents of any real quartic must be 28, 16, or fewer
 than 9. The connection between Riemann theta functions and the bitangent
-lines of smooth quartics was known to Riemann \cite{Riemann76,Baker97}
+lines of smooth quartics was known to Riemann \cite{Baker97,Riemann76}
 and, in fact, can be computed using the tools developed in this
 research. See Figure \ref{fig: edge} for an example.
 
@@ -151,7 +149,7 @@ research. See Figure \ref{fig: edge} for an example.
   \includegraphics[width=0.6\textwidth]{images/bitangents.jpg}
   \caption{The real graph of the Edge Quartic $C: f(x,y) = 25(x^4+y^4+1)
     - 34(x^2y^2+x^2+y^2) = 0$ (in blue) and its 28 real bitangents (in
-    grey). Note that four of them lie tangent $C$ at infinity. These
+    grey). Note that four of them lie tangent to $C$ at infinity. These
     lines were computed using the Riemann theta function.}
   \label{fig: edge}
 \end{figure}

@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This section serves as a brief introduction to the theory of complex
-algebraic curves. Primary references are \cite{Ueno97,Griffiths89}.
+algebraic curves. Primary references are \cite{Griffiths89,Ueno97}.
 
 %..............................................................................
 \subsection{The Projective Line}
@@ -403,7 +403,7 @@ This is a valid atlas since the transition functions
 \end{gather*}
 are holomorphic on $U_1 \cap U_2 = \CC - \{0\}$.
 
-This relationship between curves and Riemann surfaces are embodied by
+These relationships between curves and Riemann surfaces are embodied by
 the following two theorems \cite{Griffiths89}.
 
 \begin{theorem} \label{thm: normalization}
@@ -451,22 +451,22 @@ onto $l_\infty$,
 \]
 
 Thus, the surface considered here is the branched algebraic $y$-covering
-of the complex $x$-Riemann sphere. That is, the set of all
-$(x,y)$-solutions $X$ to the affine polynomial equation
+of the complex $x$-Riemann sphere, the set of all $(x,y)$-solutions to
+the affine polynomial equation
 \[
-    f(x,y) = \alpha_d(x)y^d + \alpha_{d-1}y^{d-1} + \cdots +
-             \alpha_1(x)y + \alpha_0(x) = 0
+    C = \{ (x,y) \in \CC \; | \; f(x,y) = \alpha_d(x)y^d +
+    \alpha_{d-1}y^{d-1} + \cdots + \alpha_1(x)y + \alpha_0(x) = 0\},
 \]
 as $x$ varies along all of $\CC$. We treat $x$ and $y$ as the
 independent and dependent variables of the equation, respectively.
 
-A {\it point} $\alpha \in \CC$ is called a {\it regular point of $f$} if
+A {\it point} $\alpha \in \CC$ is called a {\it regular point of $C$} if
 \[
     f(\alpha,y) = 0
 \]
 has $d$ distinct $y$-roots $y_0,\ldots,y_{d-1}$. A point $\alpha \in
-\CC$ is called a discriminant point if it is not regular. $\alpha =
-\infty$ is a regular point of $f$ if
+\CC$ is called a discriminant point if it is not regular. The point
+$\alpha = \infty$ is a regular point of $C$ if
 \[
     g(0,y)
 \]
@@ -475,6 +475,6 @@ has $d$ disctinct roots.
 A {\it place} $P$ is an element of $X$. For all but finitely many
 places, $P$ is given by a pair $(\alpha,\beta)$ such that
 $f(\alpha,\beta) = 0$. However, some places, particularly those where
-$\alpha$ is a discriminant point, need instead be represented by a pair
-of series $(x(t),y(t))$ in some local coordinate $t$. This will be
-discussed in more detail in the following section, as well.
+$\alpha$ is a discriminant point, instead needs to be represented by a
+pair of series $(x(t),y(t))$ in some local coordinate $t$. This will be
+discussed in more detail in the following section.
