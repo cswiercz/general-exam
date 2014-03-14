@@ -124,55 +124,58 @@
 
 
 \begin{frame}{Theta Function Solutions}{}
-  KP admits a (large) family of solutions of the form
+  Family of solutions: $\forall g \in \ZZ_+$
   \[
   u(x,y,t) = 2 \partial_x^2 \log
   \theta(Ux + Vy + Wt + z_0, \Omega) + c,
   \]
-  where, for any $g \in \ZZ_+$,
   \begin{itemize}
-    \item $\theta : \CC^g \times \CC^{g \times g} \to \CC$
-      is the {\it``Riemann theta function''},
-    \item $U,V,W,z_0 \in \CC^g$, $c \in \CC$,
+    \item $c \in \CC$,
+    \item $U,V,W,z_0 \in \CC^g$,
     \item $\Omega \in \CC^{g \times g}$.
+    \item {\it``Riemann theta function''} $\theta : \CC^g \times \CC^{g
+      \times g} \to \CC$
   \end{itemize}
 
   \vspace{16pt}
 
-  These ``finite genus'' solutions are \underline{dense} in the space of
-  periodic solutions to KP. (Abelian functions.)
+  {\it Finite genus solutions}:
+  \begin{itemize}
+    \item dense in space of periodic solutions to KP.
+  \end{itemize}
 \end{frame}
 
 
 
 \begin{frame}{The Riemann Theta Function}
-  The Riemann theta function: $\theta : \CC^g \times \CC^{g \times g} \to \CC$
-  \begin{align*}
-  \theta(z,\Omega)
-  &=
-  \sum_{n \in \ZZ^g}
-  e^{
-    2 \pi i
-    \left( \tfrac{1}{2} n \cdot \Omega n + n \cdot z \right)
-  } %, \\
-  %% \thetachar{\alpha}{\beta}(z,\Omega)
-  %% &=
-  %% e^{2 \pi i \left( \tfrac{1}{2} \alpha \cdot \Omega \alpha + \alpha
-  %%   \cdot (z + \beta) \right)}
-  %% \theta(z + \Omega \alpha + \beta, \Omega).
-  \end{align*}
-
-  \begin{block}{\bf Convergence}
-    $\im(\Omega)$ must be positive definite. Additionally, we only
-    consider symmetric $\Omega$. Space of ``Riemann matrices'' / the
-    ``Siegel upper half space'': $\hh_g$.
-  \end{block}
   \[
-    \theta:\CC^g \times \hh_g \to \CC
+    \theta(z,\Omega)
+    =
+    \sum_{n \in \ZZ^g}
+    e^{
+      2 \pi i
+      \left( \tfrac{1}{2} n \cdot \Omega n + n \cdot z \right)
+    }
   \]
+
+  \uncover<2>{
+  \begin{block}{\bf Convergence}
+    \begin{itemize}
+      \item Requires $\im(\Omega) > 0$.
+      \item Also need only consider $\Omega^T = \Omega$.
+      \item Space of {\it Riemann matrices}:
+      \[
+          \hh_g = \big\{ \Omega \in \CC^{g \times g} \; | \;
+                     \Omega^T = \Omega \text{ and } \im(\Omega) > 0 \big\}
+      \]
+      (Siegel upper half space.)
+      \[
+          \theta:\CC^g \times \hh_g \to \CC
+      \]
+    \end{itemize}
+  \end{block}
+  }
 \end{frame}
-
-
 
 \begin{frame}{Abelian Functions}{}
   Periodic, meromorphic functions
@@ -180,16 +183,26 @@
       f : \CC^g \to \CC
   \]
   with $2g$ independent periods.
+
+  \uncover<2->{
   \begin{itemize}
-      \item Example $g=1$: Weierstrass $\wp(z)$ function, Jacobi
-        elliptic functions $sn(z), cn(z), tn(z)$.
-      \item Example $g$: $u(x,y,t)$ for $g$ of choice.
+      \item Example $g=1$:
+        \[
+        \wp(z), sn(z), cn(z), tn(z).
+        \]
+      \item Example $g$:
+        \[
+        u(x,y,t) \quad \forall g > 0.
+        \]
       \item {\it \bf Can be written in terms of $\theta$ functions.}
   \end{itemize}
+  }
 
-  \begin{block}{}
-    These things can be computed.
-  \end{block}
+  \uncover<3>{
+  \begin{center}
+    {\it These things can be computed!}
+  \end{center}
+  }
 \end{frame}
 
 
@@ -233,9 +246,13 @@
     u(x,y,t) = 2 \partial_x^2 \log
     \theta(Ux + Vy + Wt + z_0, \Omega) + c
   \]
-  The constants $U,V,W,z_0,c,\Omega$ are not arbitrary. They come from a
-  {\it complex algebraic curve}: given a polynomial $f \in
-  \CC[\lambda,\mu]$
+  $U,V,W,z_0,c,\Omega$ not arbitrary.
+
+  \vspace{16pt}
+
+  \uncover<2>{
+
+  Derived from a {\it complex plane algebraic curve}: given
   \[
       f(\lambda,\mu) =
       \alpha_n(\lambda)\mu^n +
@@ -247,8 +264,8 @@
   \[
   C = \left\{ (\lambda,\mu) \in \CC^2 \, : \, f(\lambda,\mu) = 0 \right\}.
   \]
+  }
 \end{frame}
-
 
 
 \begin{frame}{Goal of This Talk}{}
@@ -268,18 +285,24 @@
 
 
 \begin{frame}{Algebraic Curves}{}
-  Given an irreducible polynomial $f \in \CC[x,y]$, a {\it (plane)
-    algebraic curve} is the set
   \[
       C = \left\{ (x,y) \in \CC^2 \, : \, f(x,y) = 0 \right\} \subset
       \CC^2.
   \]
-  Think of $C$ as a ``$y$-covering'' of $\CC_x$:
+  $C$ as a {\it $y$-covering} of $\CC_x$:
   \begin{itemize}
-    \item Treat $y$ as dependent variable.
-    \item $x$ varies over $\CC_x$.
-    \item What are all possible $y$-roots to $f(x,y)=0$?
+    \item $x$ independent, varies over $\CC_x$.
+    \item $y$ as dependent variable.
+    \item<2> What are all possible $y$-roots to $f(x,y)=0$?
+      \[
+          x \mapsto y(x) = (y_1(x), \ldots, y_d(x))
+      \]
   \end{itemize}
+  \uncover<2>{
+  {\it Q: Is there some surface other than $\CC_x$ where $y(x)$ is
+    single-valued?}
+  }
+
 \end{frame}
 
 
@@ -290,9 +313,15 @@
   \begin{itemize}
     \item\alt<1>{Connected, 1-dimensional complex manifold.}{{\it Every
         neighborhood of $P \in X$ looks like $U \subset \CC$.}}
-    \item<3-> Homeomorphic to a donut with $g$ holes.
+    \item<3-> Homeomorphic to a doughnut with $g$ holes.
       \begin{itemize}
-        \item $g$ = {\it ``genus''}
+        \item $g$ = {\it genus}
+      \end{itemize}
+    \item<4-> The {\it genus of a curve} $=$ the genus of $x$-surface on
+      which $y(x)$ is single-valued.
+      \begin{itemize}
+        \item Branch cuts, etc.
+        \item Caveats: singular points and points at infinity.
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -315,7 +344,7 @@
           \[
           \nabla f (\alpha, \beta) = 0
           \]
-        \item Puiseux series ``unwrap'' curve at singularities.
+        \item Puiseux series parameterize curves at singularities.
       \end{itemize}
     \item Compactify: add points at infinity. %% (Process made explicit
       %% using projective curves.)
@@ -623,17 +652,19 @@
 
 
 \begin{frame}{Integration on $X$}{}
-  {\bf Natural use for paths:} {\it integrate things on them.} \\
+  {\bf Integration: natural use for paths.}
 
-  {\it 1-forms}: things you integrate on Riemann Surfaces
+  {\it 1-forms}:
   \[
       \omega \in \Omega_X^1,
   \]
-  where, it may {\it locally} be written
+  where, it is {\it locally} written
   \[
-      \omega \Big|_{X_k \subset X} =
-      h_k\big(x,y(x)\big)dx, \quad h_k \text{ meromorphic}.
+      \omega \Big|_{U_\alpha \subset X} =
+      h_\alpha\big(x,y(x)\big)dx, \quad h_\alpha \text{ meromorphic}.
   \]
+
+  \uncover<2>{
   Given a path
   \[
       \gamma \in H_1(X,\mathbb{Z})
@@ -642,22 +673,19 @@
   \[
       \int_\gamma \omega.
   \]
+  }
 \end{frame}
 
 
 
 \begin{frame}{Holomorphic Differentials}{}
-  \begin{block}{}
-    The set of all {\it holomorphic} 1-forms on a genus $g$ Riemann
-    surface $X$ forms a vector space over $\CC$
-    \[
-        \Gamma(X,\Omega_X^1).
-    \]
-  \end{block}
+  {\it Holomorphic} 1-forms:
+  \[
+      \Gamma(X,\Omega_X^1).
+  \]
 
   \uncover<2>{
-  Finite dimensional:
-
+  Finite dimensional vector space:
   \begin{gather*}
       \dim_{\CC} \Gamma(X, \Omega_X^1) = g \\
       \vspace{16pt} \\
@@ -687,13 +715,13 @@
 
 
 %------------------------------------------------------------------------------
-\subsection{Period Matrices and the Abel Map}
+\subsection{Period Matrices}
 %------------------------------------------------------------------------------
 
 
 
 \begin{frame}{Period Matrices}{}
-  Define the matrices $A,B \in \CC^{g \times g}$:
+  Define $A,B \in \CC^{g \times g}$:
   \[
       A_{ij} = \int_{a_j} \omega_i \quad \quad B_{ij} = \int_{b_j} \omega_i
   \]
@@ -720,46 +748,29 @@
     $\Omega$ is a Riemann matrix.
   \end{block}
 
-  \vspace{16pt}
+  \uncover<2-4>{
+  \begin{itemize}
+    \item $\dim_{\CC} \{ \text{period matrices} \} = 3g-3$
+    \item $\dim_{\CC} \mathfrak{h}_g = g(g+1)/2$
+  \end{itemize}
+  }
+  \uncover<3-4> {
+    \begin{block}{\bf Schottky Problem (1880s)}
+      Given a Riemann matrix can we tell if it's a period matrix?
+    \end{block}
+  }
 
-    \uncover<2-3> {
-      \begin{block}{\bf Schottky Problem (1880s)}
-        But not every Riemann matrix comes from a period matrix. Given a
-        Riemann matrix can we tell if it's a period matrix?
-      \end{block}
-    }
-
-    \uncover<3> {
-      \begin{block}{\bf Novikov Conjecture (1965) / Shiota Theorem (1986)}
-        A Riemann matrix $\Omega$ is a period matrix \underline{if and
-          only if} $\exists U,V,W,z0 \in \CC^g, c \in \CC$ such that
-        \[
-            u(x,y,t) = 2 \partial_x^2 \log
-            \theta(Ux + Vy + Wt + z_0, \Omega) + c
-        \]
-        satisfies the KP equation.
-      \end{block}
-    }
-
-  %% \begin{overprint}
-  %%   \onslide<2-3> {
-  %%     \begin{block}{\bf Schottky Problem (1880s)}
-  %%       Given a Riemann matrix can we tell if it's a period matrix?
-  %%     \end{block}
-  %%   }
-
-  %%   \onslide<3> {
-  %%     \begin{block}{\bf Novikov Conjecture (1965) / Shiota Theorem (1986)}
-  %%       A Riemann matrix $\Omega$ is a period matrix \underline{if and
-  %%         only if} $\exists U,V,W,z0 \in \CC^g, c \in \CC$ such that
-  %%       \[
-  %%           u(x,y,t) = 2 \partial_x^2 \log
-  %%           \theta(Ux + Vy + Wt + z_0, \Omega) + c
-  %%       \]
-  %%       satisfies the KP equation.
-  %%     \end{block}
-  %%   }
-  %% \end{overprint}
+  \uncover<4> {
+    \begin{block}{\bf Novikov Conjecture (1965) / Shiota Theorem (1986)}
+      A Riemann matrix $\Omega$ is a period matrix \underline{if and
+        only if} $\exists U,V,W,z0 \in \CC^g, c \in \CC$ such that
+      \[
+          u(x,y,t) = 2 \partial_x^2 \log
+          \theta(Ux + Vy + Wt + z_0, \Omega) + c
+      \]
+      satisfies the KP equation.
+    \end{block}
+  }
 \end{frame}
 
 
@@ -787,51 +798,50 @@
 
 
 \begin{frame}{Return to KP}{}
-What do we need to construct finite genus solutions to KP?
+Actually constructing solutions
 \[
-  u(x,y,t) = 2 \partial_x^2 \log \theta(Ux + Vy + Wt + z_0, \Omega) + c
+  u(x,y,t) = 2 \partial_x^2 \log \theta(Ux + Vy + Wt + z_0, \Omega) + c.
 \]
+Ingredients:
 \begin{enumerate}
   \item<2-> Curve $C : f(\lambda,\mu) = 0$,
-  \item<3-> {\it ``Divisor''} $D$ on $X$: a finite, formal sum of places
+  \item<3-> {\it Divisor} $D$ on $X$: a finite, formal sum of places
     \[
     D = \sum_i n_i P_i, \quad P_i \in X.
     \]
 \end{enumerate}
 
-\uncover<3->{
-
-  {\bf Goal:} Develop a fast, black box algorithm for producing and
-  evaluating these solutions.
-
-}
+  \uncover<3->{
+  {\bf Goal:} Develop a fast algorithm for producing and
+              evaluating these solutions.
+  }
 \end{frame}
 
 
 
 \begin{frame}{Generalization to Other PDEs}{}
-  Given a finite genus solution formula
+  Analytically determine finite genus solution formula:
   \[
       u = \left\{
-      \begin{array}{l}
-        u(x,t) \\
-        u(x,y,t)
+      \begin{array}{ll}
+        u(x,t)   & (\text{1D case}), \\
+        u(x,y,t) & (\text{2D case}). \\
       \end{array}
       \right.
   \]
-  the necessary constants and matrices are all computable using the
-  tools in {\tt abelfunctions}.
+
+  \uncover<2->{
+  All necessary parameters are computable using {\tt abelfunctions}.
   \begin{itemize}
-    \item KP is ``generic enough''.
+    \item i.e. KP is ``generic enough''.
   \end{itemize}
+  }
 
   \vspace{16pt}
 
-  \uncover<2->{
-
-    {\bf Goal:} Develop a framework for easily adding code to compute
-    finite genus solutions to other integrable equations.
-
+  \uncover<3->{
+    {\bf Goal:} Develop a framework for computing finite genus solutions
+                to other integrable PDEs.
   }
 \end{frame}
 
@@ -844,15 +854,18 @@ What do we need to construct finite genus solutions to KP?
 
 
 \begin{frame}{Linear Matrix Representations}{}
-  Every polynomial $f \in \CC[x,y]$ can be written as
+  $\forall f \in \CC[x,y]$:
   \[
       f(x,y) = \det(A + Bx + Cy), \quad A,B,C \text{ symmetric}.
   \]
   Applications:
   \begin{itemize}
-    \item formulation of problems in control theory,
-    \item if $A,B,C \geq 0$, polynomial inequalities solvable by
-      positive (semi) definite programming,
+    \item Control theory,
+    \item solving polynomial inequalities,
+      \begin{itemize}
+        \item Can use positive (semi) definite programming if $A,B,C
+          \geq 0$.
+      \end{itemize}
     \item study of two-dimensional {\it spectrahedra}: regions in
       $\mathbb{R}^2$ bounded by {\it Helton--Vinnikov curves}.
   \end{itemize}
@@ -860,7 +873,7 @@ What do we need to construct finite genus solutions to KP?
 
 
 
-\begin{frame}{Computing $A,B,C$}{}
+\begin{frame}{LMRs for Helton--Vinnikov Curves}{}
   Combinatorial Approach (Plaumann, Sturmfels, Vinzant)
   \[
       O \left( 2^{d-2 \choose 2} \right)
@@ -873,8 +886,8 @@ What do we need to construct finite genus solutions to KP?
       O \left( g^2 \right) \approx O \left( d^4 \right)
       \text{ compute time}
   \]
-  Uses Riemann theta, the {\it Abel map}, and {\it Schottky--Klein
-    prime form}. \\
+  Uses Riemann theta, {\it Abel map}, and {\it Schottky--Klein prime
+    form}. \\
 
   \vspace{16pt}
 
@@ -916,14 +929,17 @@ What do we need to construct finite genus solutions to KP?
 
 
 \begin{frame}{Constructive Schottky Problem}{}
-  All period matrices are Riemann matrices, but not vice versa.
-  \begin{itemize}
-    \item $\dim_{\CC} \{ \text{period matrices} \} = 3g-3$
-    \item $\dim_{\CC} \mathfrak{h}_g = g(g+1)/2$
-  \end{itemize}
+  \begin{block}{\bf Recall}
+    All period matrices are Riemann matrices, but not vice versa.
+    \begin{itemize}
+      \item $\dim_{\CC} \{ \text{period matrices} \} = 3g-3$
+      \item $\dim_{\CC} \mathfrak{h}_g = g(g+1)/2$
+    \end{itemize}
+  \end{block}
 
   \vspace{16pt}
 
+  \uncover<2>{
   \begin{block}{\bf The Constructive Schottky Problem}
     Given a Riemann matrix $\Omega$ can we produce a curve $C : f(x,y) =
     0$ with $\Omega$ as its period matrix?
@@ -932,6 +948,7 @@ What do we need to construct finite genus solutions to KP?
   \vspace{16pt}
 
   {\bf Goal (Long Term):} Compute such an $f$.
+  }
 \end{frame}
 
 
